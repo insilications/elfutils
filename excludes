@@ -1,0 +1,11 @@
+/usr/bin/addr2line
+/usr/bin/ar
+/usr/bin/ld
+/usr/bin/nm
+/usr/bin/objdump
+/usr/bin/ranlib
+/usr/bin/readelf
+/usr/bin/size
+/usr/bin/stack
+/usr/bin/strings
+/usr/bin/strip
