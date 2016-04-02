@@ -4,7 +4,7 @@
 #
 Name     : elfutils
 Version  : 0.166
-Release  : 27
+Release  : 28
 URL      : https://fedorahosted.org/releases/e/l/elfutils/0.166/elfutils-0.166.tar.bz2
 Source0  : https://fedorahosted.org/releases/e/l/elfutils/0.166/elfutils-0.166.tar.bz2
 Summary  : A collection of utilities and DSOs to handle compiled objects
@@ -115,8 +115,11 @@ rm -rf %{buildroot}
 
 %files dev
 %defattr(-,root,root,-)
+%exclude /usr/lib64/libasm-0.166.so
 %exclude /usr/lib64/libasm.so
+%exclude /usr/lib64/libdw-0.166.so
 %exclude /usr/lib64/libdw.so
+%exclude /usr/lib64/libelf-0.166.so
 %exclude /usr/lib64/libelf.so
 /usr/include/*.h
 /usr/include/elfutils/elf-knowledge.h
@@ -127,13 +130,15 @@ rm -rf %{buildroot}
 /usr/include/elfutils/libdwfl.h
 /usr/include/elfutils/libebl.h
 /usr/include/elfutils/version.h
-/usr/lib64/*.so
 /usr/lib64/pkgconfig/*.pc
 
 %files extras
 %defattr(-,root,root,-)
+/usr/lib64/libasm-0.166.so
 /usr/lib64/libasm.so
+/usr/lib64/libdw-0.166.so
 /usr/lib64/libdw.so
+/usr/lib64/libelf-0.166.so
 /usr/lib64/libelf.so
 
 %files lib
