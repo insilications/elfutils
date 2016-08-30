@@ -50,6 +50,7 @@ libdw.so.1:ELFUTILS_0.159
 libdw.so.1:ELFUTILS_0.160
 libdw.so.1:ELFUTILS_0.161
 libdw.so.1:ELFUTILS_0.165
+libdw.so.1:ELFUTILS_0.167
 libdw.so.1:dwarf_abbrevhaschildren
 libdw.so.1:dwarf_addrdie
 libdw.so.1:dwarf_aggregate_size
@@ -171,6 +172,13 @@ libdw.so.1:dwelf_dwarf_gnu_debugaltlink
 libdw.so.1:dwelf_elf_gnu_build_id
 libdw.so.1:dwelf_elf_gnu_debuglink
 libdw.so.1:dwelf_scn_gnu_compressed_size
+libdw.so.1:dwelf_strent_off
+libdw.so.1:dwelf_strent_str
+libdw.so.1:dwelf_strtab_add
+libdw.so.1:dwelf_strtab_add_len
+libdw.so.1:dwelf_strtab_finalize
+libdw.so.1:dwelf_strtab_free
+libdw.so.1:dwelf_strtab_init
 libdw.so.1:dwfl_addrdie
 libdw.so.1:dwfl_addrdwarf
 libdw.so.1:dwfl_addrmodule
