@@ -4,7 +4,7 @@
 #
 Name     : elfutils
 Version  : 0.167
-Release  : 32
+Release  : 33
 URL      : https://fedorahosted.org/releases/e/l/elfutils/0.167/elfutils-0.167.tar.bz2
 Source0  : https://fedorahosted.org/releases/e/l/elfutils/0.167/elfutils-0.167.tar.bz2
 Summary  : A collection of utilities and DSOs to handle compiled objects
@@ -131,7 +131,8 @@ rm -rf %{buildroot}
 /usr/include/elfutils/libdwfl.h
 /usr/include/elfutils/libebl.h
 /usr/include/elfutils/version.h
-/usr/lib64/pkgconfig/*.pc
+/usr/lib64/pkgconfig/libdw.pc
+/usr/lib64/pkgconfig/libelf.pc
 
 %files extras
 %defattr(-,root,root,-)
@@ -144,7 +145,6 @@ rm -rf %{buildroot}
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/*.so.*
 /usr/lib64/elfutils/libebl_aarch64-0.167.so
 /usr/lib64/elfutils/libebl_aarch64.so
 /usr/lib64/elfutils/libebl_alpha-0.167.so
@@ -173,6 +173,9 @@ rm -rf %{buildroot}
 /usr/lib64/elfutils/libebl_tilegx.so
 /usr/lib64/elfutils/libebl_x86_64-0.167.so
 /usr/lib64/elfutils/libebl_x86_64.so
+/usr/lib64/libasm.so.1
+/usr/lib64/libdw.so.1
+/usr/lib64/libelf.so.1
 
 %files locales -f elfutils.lang 
 %defattr(-,root,root,-)
