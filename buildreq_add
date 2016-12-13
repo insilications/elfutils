@@ -5,3 +5,5 @@
 xz-dev
 bzip2-dev
 zlib-dev
+zlib-dev32
+xz-dev32

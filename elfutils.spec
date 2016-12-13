@@ -4,7 +4,7 @@
 #
 Name     : elfutils
 Version  : 0.167
-Release  : 33
+Release  : 34
 URL      : https://fedorahosted.org/releases/e/l/elfutils/0.167/elfutils-0.167.tar.bz2
 Source0  : https://fedorahosted.org/releases/e/l/elfutils/0.167/elfutils-0.167.tar.bz2
 Summary  : A collection of utilities and DSOs to handle compiled objects
@@ -16,8 +16,15 @@ Requires: elfutils-locales
 BuildRequires : bison
 BuildRequires : bzip2-dev
 BuildRequires : flex
+BuildRequires : gcc-dev32
+BuildRequires : gcc-libgcc32
+BuildRequires : gcc-libstdc++32
+BuildRequires : glibc-dev32
+BuildRequires : glibc-libc32
 BuildRequires : xz-dev
+BuildRequires : xz-dev32
 BuildRequires : zlib-dev
+BuildRequires : zlib-dev32
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -48,6 +55,16 @@ Provides: elfutils-devel
 dev components for the elfutils package.
 
 
+%package dev32
+Summary: dev32 components for the elfutils package.
+Group: Default
+Requires: elfutils-lib32
+Requires: elfutils-bin
+
+%description dev32
+dev32 components for the elfutils package.
+
+
 %package extras
 Summary: extras components for the elfutils package.
 Group: Default
@@ -64,6 +81,14 @@ Group: Libraries
 lib components for the elfutils package.
 
 
+%package lib32
+Summary: lib32 components for the elfutils package.
+Group: Default
+
+%description lib32
+lib32 components for the elfutils package.
+
+
 %package locales
 Summary: locales components for the elfutils package.
 Group: Default
@@ -74,12 +99,26 @@ locales components for the elfutils package.
 
 %prep
 %setup -q -n elfutils-0.167
+pushd ..
+cp -a elfutils-0.167 build32
+popd
 
 %build
 export LANG=C
+export CFLAGS="$CFLAGS -Os -ffunction-sections "
+export FCFLAGS="$CFLAGS -Os -ffunction-sections "
+export FFLAGS="$CFLAGS -Os -ffunction-sections "
+export CXXFLAGS="$CXXFLAGS -Os -ffunction-sections "
 %configure --disable-static --program-prefix=eu- --with-lzma
 make V=1  %{?_smp_mflags}
 
+pushd ../build32/
+export CFLAGS="$CFLAGS -m32"
+export CXXFLAGS="$CXXFLAGS -m32"
+export LDFLAGS="$LDFLAGS -m32"
+%configure --disable-static --program-prefix=eu- --with-lzma  --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+make V=1  %{?_smp_mflags}
+popd
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
@@ -89,11 +128,48 @@ make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
 rm -rf %{buildroot}
+pushd ../build32/
+%make_install32
+if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
+then
+pushd %{buildroot}/usr/lib32/pkgconfig
+for i in *.pc ; do mv $i 32$i ; done
+popd
+fi
+popd
 %make_install
 %find_lang elfutils
 
 %files
 %defattr(-,root,root,-)
+/usr/lib32/elfutils/libebl_aarch64-0.167.so
+/usr/lib32/elfutils/libebl_aarch64.so
+/usr/lib32/elfutils/libebl_alpha-0.167.so
+/usr/lib32/elfutils/libebl_alpha.so
+/usr/lib32/elfutils/libebl_arm-0.167.so
+/usr/lib32/elfutils/libebl_arm.so
+/usr/lib32/elfutils/libebl_bpf-0.167.so
+/usr/lib32/elfutils/libebl_bpf.so
+/usr/lib32/elfutils/libebl_i386-0.167.so
+/usr/lib32/elfutils/libebl_i386.so
+/usr/lib32/elfutils/libebl_ia64-0.167.so
+/usr/lib32/elfutils/libebl_ia64.so
+/usr/lib32/elfutils/libebl_m68k-0.167.so
+/usr/lib32/elfutils/libebl_m68k.so
+/usr/lib32/elfutils/libebl_ppc-0.167.so
+/usr/lib32/elfutils/libebl_ppc.so
+/usr/lib32/elfutils/libebl_ppc64-0.167.so
+/usr/lib32/elfutils/libebl_ppc64.so
+/usr/lib32/elfutils/libebl_s390-0.167.so
+/usr/lib32/elfutils/libebl_s390.so
+/usr/lib32/elfutils/libebl_sh-0.167.so
+/usr/lib32/elfutils/libebl_sh.so
+/usr/lib32/elfutils/libebl_sparc-0.167.so
+/usr/lib32/elfutils/libebl_sparc.so
+/usr/lib32/elfutils/libebl_tilegx-0.167.so
+/usr/lib32/elfutils/libebl_tilegx.so
+/usr/lib32/elfutils/libebl_x86_64-0.167.so
+/usr/lib32/elfutils/libebl_x86_64.so
 
 %files bin
 %defattr(-,root,root,-)
@@ -133,6 +209,17 @@ rm -rf %{buildroot}
 /usr/include/elfutils/version.h
 /usr/lib64/pkgconfig/libdw.pc
 /usr/lib64/pkgconfig/libelf.pc
+
+%files dev32
+%defattr(-,root,root,-)
+/usr/lib32/libasm-0.167.so
+/usr/lib32/libasm.so
+/usr/lib32/libdw-0.167.so
+/usr/lib32/libdw.so
+/usr/lib32/libelf-0.167.so
+/usr/lib32/libelf.so
+/usr/lib32/pkgconfig/32libdw.pc
+/usr/lib32/pkgconfig/32libelf.pc
 
 %files extras
 %defattr(-,root,root,-)
@@ -176,6 +263,12 @@ rm -rf %{buildroot}
 /usr/lib64/libasm.so.1
 /usr/lib64/libdw.so.1
 /usr/lib64/libelf.so.1
+
+%files lib32
+%defattr(-,root,root,-)
+/usr/lib32/libasm.so.1
+/usr/lib32/libdw.so.1
+/usr/lib32/libelf.so.1
 
 %files locales -f elfutils.lang 
 %defattr(-,root,root,-)
