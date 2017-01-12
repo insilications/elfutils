@@ -6,7 +6,7 @@
 #
 Name     : elfutils
 Version  : 0.168
-Release  : 36
+Release  : 37
 URL      : https://fedorahosted.org/releases/e/l/elfutils/0.168/elfutils-0.168.tar.bz2
 Source0  : https://fedorahosted.org/releases/e/l/elfutils/0.168/elfutils-0.168.tar.bz2
 Summary  : A collection of utilities and DSOs to handle ELF files and DWARF data
@@ -68,14 +68,6 @@ Requires: elfutils-dev
 dev32 components for the elfutils package.
 
 
-%package extras
-Summary: extras components for the elfutils package.
-Group: Default
-
-%description extras
-extras components for the elfutils package.
-
-
 %package lib
 Summary: lib components for the elfutils package.
 Group: Libraries
@@ -108,7 +100,7 @@ popd
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1483991575
+export SOURCE_DATE_EPOCH=1484261510
 export CFLAGS="$CFLAGS -Os -ffunction-sections "
 export FCFLAGS="$CFLAGS -Os -ffunction-sections "
 export FFLAGS="$CFLAGS -Os -ffunction-sections "
@@ -169,9 +161,6 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
-%exclude /usr/lib64/libasm-0.168.so
-%exclude /usr/lib64/libdw-0.168.so
-%exclude /usr/lib64/libelf-0.168.so
 /usr/include/*.h
 /usr/include/elfutils/elf-knowledge.h
 /usr/include/elfutils/known-dwarf.h
@@ -189,22 +178,13 @@ popd
 
 %files dev32
 %defattr(-,root,root,-)
-/usr/lib32/libasm-0.168.so
 /usr/lib32/libasm.so
-/usr/lib32/libdw-0.168.so
 /usr/lib32/libdw.so
-/usr/lib32/libelf-0.168.so
 /usr/lib32/libelf.so
 /usr/lib32/pkgconfig/32libdw.pc
 /usr/lib32/pkgconfig/32libelf.pc
 /usr/lib32/pkgconfig/libdw.pc
 /usr/lib32/pkgconfig/libelf.pc
-
-%files extras
-%defattr(-,root,root,-)
-/usr/lib64/libasm-0.168.so
-/usr/lib64/libdw-0.168.so
-/usr/lib64/libelf-0.168.so
 
 %files lib
 %defattr(-,root,root,-)
@@ -236,8 +216,11 @@ popd
 /usr/lib64/elfutils/libebl_tilegx.so
 /usr/lib64/elfutils/libebl_x86_64-0.168.so
 /usr/lib64/elfutils/libebl_x86_64.so
+/usr/lib64/libasm-0.168.so
 /usr/lib64/libasm.so.1
+/usr/lib64/libdw-0.168.so
 /usr/lib64/libdw.so.1
+/usr/lib64/libelf-0.168.so
 /usr/lib64/libelf.so.1
 
 %files lib32
@@ -270,8 +253,11 @@ popd
 /usr/lib32/elfutils/libebl_tilegx.so
 /usr/lib32/elfutils/libebl_x86_64-0.168.so
 /usr/lib32/elfutils/libebl_x86_64.so
+/usr/lib32/libasm-0.168.so
 /usr/lib32/libasm.so.1
+/usr/lib32/libdw-0.168.so
 /usr/lib32/libdw.so.1
+/usr/lib32/libelf-0.168.so
 /usr/lib32/libelf.so.1
 
 %files locales -f elfutils.lang
