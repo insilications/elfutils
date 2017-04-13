@@ -6,9 +6,10 @@
 #
 Name     : elfutils
 Version  : 0.168
-Release  : 37
+Release  : 38
 URL      : https://fedorahosted.org/releases/e/l/elfutils/0.168/elfutils-0.168.tar.bz2
 Source0  : https://fedorahosted.org/releases/e/l/elfutils/0.168/elfutils-0.168.tar.bz2
+Source99 : https://fedorahosted.org/releases/e/l/elfutils/0.168/elfutils-0.168.tar.bz2.sig
 Summary  : A collection of utilities and DSOs to handle ELF files and DWARF data
 Group    : Development/Tools
 License  : GPL-2.0 GPL-2.0+ GPL-3.0 GPL-3.0+ LGPL-3.0 LGPL-3.0+
@@ -27,6 +28,13 @@ BuildRequires : xz-dev
 BuildRequires : xz-dev32
 BuildRequires : zlib-dev
 BuildRequires : zlib-dev32
+Patch1: cve-2017-7607.patch
+Patch2: cve-2017-7608.patch
+Patch3: cve-2017-7609.patch
+Patch4: cve-2017-7611.patch
+Patch5: cve-2017-7612.patch
+Patch6: cve-2017-7613.patch
+Patch7: cve-2017-7610.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -94,13 +102,20 @@ locales components for the elfutils package.
 
 %prep
 %setup -q -n elfutils-0.168
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
 pushd ..
 cp -a elfutils-0.168 build32
 popd
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1484261510
+export SOURCE_DATE_EPOCH=1492123645
 export CFLAGS="$CFLAGS -Os -ffunction-sections "
 export FCFLAGS="$CFLAGS -Os -ffunction-sections "
 export FFLAGS="$CFLAGS -Os -ffunction-sections "
@@ -124,6 +139,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
+export SOURCE_DATE_EPOCH=1492123645
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
