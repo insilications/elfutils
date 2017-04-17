@@ -6,7 +6,7 @@
 #
 Name     : elfutils
 Version  : 0.168
-Release  : 38
+Release  : 39
 URL      : https://fedorahosted.org/releases/e/l/elfutils/0.168/elfutils-0.168.tar.bz2
 Source0  : https://fedorahosted.org/releases/e/l/elfutils/0.168/elfutils-0.168.tar.bz2
 Source99 : https://fedorahosted.org/releases/e/l/elfutils/0.168/elfutils-0.168.tar.bz2.sig
@@ -115,11 +115,11 @@ popd
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1492123645
-export CFLAGS="$CFLAGS -Os -ffunction-sections "
-export FCFLAGS="$CFLAGS -Os -ffunction-sections "
-export FFLAGS="$CFLAGS -Os -ffunction-sections "
-export CXXFLAGS="$CXXFLAGS -Os -ffunction-sections "
+export SOURCE_DATE_EPOCH=1492458546
+export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
+export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
+export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
+export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
 %configure --disable-static --program-prefix=eu- --with-lzma
 make V=1  %{?_smp_mflags}
 
@@ -139,7 +139,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1492123645
+export SOURCE_DATE_EPOCH=1492458546
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
