@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x8370665B57816A6A (mjw@gnu.org)
 #
 Name     : elfutils
-Version  : 0.169
-Release  : 40
-URL      : https://sourceware.org/elfutils/ftp/0.169/elfutils-0.169.tar.bz2
-Source0  : https://sourceware.org/elfutils/ftp/0.169/elfutils-0.169.tar.bz2
-Source99 : https://sourceware.org/elfutils/ftp/0.169/elfutils-0.169.tar.bz2.sig
+Version  : 0.170
+Release  : 41
+URL      : https://sourceware.org/elfutils/ftp/0.170/elfutils-0.170.tar.bz2
+Source0  : https://sourceware.org/elfutils/ftp/0.170/elfutils-0.170.tar.bz2
+Source99 : https://sourceware.org/elfutils/ftp/0.170/elfutils-0.170.tar.bz2.sig
 Summary  : A collection of utilities and DSOs to handle ELF files and DWARF data
 Group    : Development/Tools
 License  : GPL-2.0 GPL-2.0+ GPL-3.0 GPL-3.0+ LGPL-3.0 LGPL-3.0+
@@ -94,9 +94,9 @@ locales components for the elfutils package.
 
 
 %prep
-%setup -q -n elfutils-0.169
+%setup -q -n elfutils-0.170
 pushd ..
-cp -a elfutils-0.169 build32
+cp -a elfutils-0.170 build32
 popd
 
 %build
@@ -104,7 +104,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1494611951
+export SOURCE_DATE_EPOCH=1502066455
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
 export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
 export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
@@ -125,10 +125,10 @@ export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1494611951
+export SOURCE_DATE_EPOCH=1502066455
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
@@ -193,76 +193,76 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/elfutils/libebl_aarch64-0.169.so
+/usr/lib64/elfutils/libebl_aarch64-0.170.so
 /usr/lib64/elfutils/libebl_aarch64.so
-/usr/lib64/elfutils/libebl_alpha-0.169.so
+/usr/lib64/elfutils/libebl_alpha-0.170.so
 /usr/lib64/elfutils/libebl_alpha.so
-/usr/lib64/elfutils/libebl_arm-0.169.so
+/usr/lib64/elfutils/libebl_arm-0.170.so
 /usr/lib64/elfutils/libebl_arm.so
-/usr/lib64/elfutils/libebl_bpf-0.169.so
+/usr/lib64/elfutils/libebl_bpf-0.170.so
 /usr/lib64/elfutils/libebl_bpf.so
-/usr/lib64/elfutils/libebl_i386-0.169.so
+/usr/lib64/elfutils/libebl_i386-0.170.so
 /usr/lib64/elfutils/libebl_i386.so
-/usr/lib64/elfutils/libebl_ia64-0.169.so
+/usr/lib64/elfutils/libebl_ia64-0.170.so
 /usr/lib64/elfutils/libebl_ia64.so
-/usr/lib64/elfutils/libebl_m68k-0.169.so
+/usr/lib64/elfutils/libebl_m68k-0.170.so
 /usr/lib64/elfutils/libebl_m68k.so
-/usr/lib64/elfutils/libebl_ppc-0.169.so
+/usr/lib64/elfutils/libebl_ppc-0.170.so
 /usr/lib64/elfutils/libebl_ppc.so
-/usr/lib64/elfutils/libebl_ppc64-0.169.so
+/usr/lib64/elfutils/libebl_ppc64-0.170.so
 /usr/lib64/elfutils/libebl_ppc64.so
-/usr/lib64/elfutils/libebl_s390-0.169.so
+/usr/lib64/elfutils/libebl_s390-0.170.so
 /usr/lib64/elfutils/libebl_s390.so
-/usr/lib64/elfutils/libebl_sh-0.169.so
+/usr/lib64/elfutils/libebl_sh-0.170.so
 /usr/lib64/elfutils/libebl_sh.so
-/usr/lib64/elfutils/libebl_sparc-0.169.so
+/usr/lib64/elfutils/libebl_sparc-0.170.so
 /usr/lib64/elfutils/libebl_sparc.so
-/usr/lib64/elfutils/libebl_tilegx-0.169.so
+/usr/lib64/elfutils/libebl_tilegx-0.170.so
 /usr/lib64/elfutils/libebl_tilegx.so
-/usr/lib64/elfutils/libebl_x86_64-0.169.so
+/usr/lib64/elfutils/libebl_x86_64-0.170.so
 /usr/lib64/elfutils/libebl_x86_64.so
-/usr/lib64/libasm-0.169.so
+/usr/lib64/libasm-0.170.so
 /usr/lib64/libasm.so.1
-/usr/lib64/libdw-0.169.so
+/usr/lib64/libdw-0.170.so
 /usr/lib64/libdw.so.1
-/usr/lib64/libelf-0.169.so
+/usr/lib64/libelf-0.170.so
 /usr/lib64/libelf.so.1
 
 %files lib32
 %defattr(-,root,root,-)
-/usr/lib32/elfutils/libebl_aarch64-0.169.so
+/usr/lib32/elfutils/libebl_aarch64-0.170.so
 /usr/lib32/elfutils/libebl_aarch64.so
-/usr/lib32/elfutils/libebl_alpha-0.169.so
+/usr/lib32/elfutils/libebl_alpha-0.170.so
 /usr/lib32/elfutils/libebl_alpha.so
-/usr/lib32/elfutils/libebl_arm-0.169.so
+/usr/lib32/elfutils/libebl_arm-0.170.so
 /usr/lib32/elfutils/libebl_arm.so
-/usr/lib32/elfutils/libebl_bpf-0.169.so
+/usr/lib32/elfutils/libebl_bpf-0.170.so
 /usr/lib32/elfutils/libebl_bpf.so
-/usr/lib32/elfutils/libebl_i386-0.169.so
+/usr/lib32/elfutils/libebl_i386-0.170.so
 /usr/lib32/elfutils/libebl_i386.so
-/usr/lib32/elfutils/libebl_ia64-0.169.so
+/usr/lib32/elfutils/libebl_ia64-0.170.so
 /usr/lib32/elfutils/libebl_ia64.so
-/usr/lib32/elfutils/libebl_m68k-0.169.so
+/usr/lib32/elfutils/libebl_m68k-0.170.so
 /usr/lib32/elfutils/libebl_m68k.so
-/usr/lib32/elfutils/libebl_ppc-0.169.so
+/usr/lib32/elfutils/libebl_ppc-0.170.so
 /usr/lib32/elfutils/libebl_ppc.so
-/usr/lib32/elfutils/libebl_ppc64-0.169.so
+/usr/lib32/elfutils/libebl_ppc64-0.170.so
 /usr/lib32/elfutils/libebl_ppc64.so
-/usr/lib32/elfutils/libebl_s390-0.169.so
+/usr/lib32/elfutils/libebl_s390-0.170.so
 /usr/lib32/elfutils/libebl_s390.so
-/usr/lib32/elfutils/libebl_sh-0.169.so
+/usr/lib32/elfutils/libebl_sh-0.170.so
 /usr/lib32/elfutils/libebl_sh.so
-/usr/lib32/elfutils/libebl_sparc-0.169.so
+/usr/lib32/elfutils/libebl_sparc-0.170.so
 /usr/lib32/elfutils/libebl_sparc.so
-/usr/lib32/elfutils/libebl_tilegx-0.169.so
+/usr/lib32/elfutils/libebl_tilegx-0.170.so
 /usr/lib32/elfutils/libebl_tilegx.so
-/usr/lib32/elfutils/libebl_x86_64-0.169.so
+/usr/lib32/elfutils/libebl_x86_64-0.170.so
 /usr/lib32/elfutils/libebl_x86_64.so
-/usr/lib32/libasm-0.169.so
+/usr/lib32/libasm-0.170.so
 /usr/lib32/libasm.so.1
-/usr/lib32/libdw-0.169.so
+/usr/lib32/libdw-0.170.so
 /usr/lib32/libdw.so.1
-/usr/lib32/libelf-0.169.so
+/usr/lib32/libelf-0.170.so
 /usr/lib32/libelf.so.1
 
 %files locales -f elfutils.lang

@@ -51,6 +51,7 @@ libdw.so.1:ELFUTILS_0.160
 libdw.so.1:ELFUTILS_0.161
 libdw.so.1:ELFUTILS_0.165
 libdw.so.1:ELFUTILS_0.167
+libdw.so.1:ELFUTILS_0.170
 libdw.so.1:dwarf_abbrevhaschildren
 libdw.so.1:dwarf_addrdie
 libdw.so.1:dwarf_aggregate_size
@@ -71,6 +72,7 @@ libdw.so.1:dwarf_cuoffset
 libdw.so.1:dwarf_decl_column
 libdw.so.1:dwarf_decl_file
 libdw.so.1:dwarf_decl_line
+libdw.so.1:dwarf_default_lower_bound
 libdw.so.1:dwarf_diecu
 libdw.so.1:dwarf_diename
 libdw.so.1:dwarf_dieoffset
@@ -132,6 +134,7 @@ libdw.so.1:dwarf_haschildren
 libdw.so.1:dwarf_hasform
 libdw.so.1:dwarf_haspc
 libdw.so.1:dwarf_highpc
+libdw.so.1:dwarf_line_file
 libdw.so.1:dwarf_lineaddr
 libdw.so.1:dwarf_linebeginstatement
 libdw.so.1:dwarf_lineblock
