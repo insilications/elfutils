@@ -6,7 +6,7 @@
 #
 Name     : elfutils
 Version  : 0.170
-Release  : 41
+Release  : 42
 URL      : https://sourceware.org/elfutils/ftp/0.170/elfutils-0.170.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.170/elfutils-0.170.tar.bz2
 Source99 : https://sourceware.org/elfutils/ftp/0.170/elfutils-0.170.tar.bz2.sig
