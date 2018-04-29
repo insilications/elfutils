@@ -6,7 +6,7 @@
 #
 Name     : elfutils
 Version  : 0.170
-Release  : 42
+Release  : 43
 URL      : https://sourceware.org/elfutils/ftp/0.170/elfutils-0.170.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.170/elfutils-0.170.tar.bz2
 Source99 : https://sourceware.org/elfutils/ftp/0.170/elfutils-0.170.tar.bz2.sig
@@ -28,6 +28,7 @@ BuildRequires : xz-dev
 BuildRequires : xz-dev32
 BuildRequires : zlib-dev
 BuildRequires : zlib-dev32
+Patch1: cve-2018-8769.nopatch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -104,13 +105,13 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1502066455
-export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
-export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
-export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
-export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
+export SOURCE_DATE_EPOCH=1524966285
+export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs "
+export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs "
+export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs "
+export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs "
 %configure --disable-static --program-prefix=eu- --with-lzma
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
@@ -118,7 +119,7 @@ export CFLAGS="$CFLAGS -m32"
 export CXXFLAGS="$CXXFLAGS -m32"
 export LDFLAGS="$LDFLAGS -m32"
 %configure --disable-static --program-prefix=eu- --with-lzma   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 popd
 %check
 export LANG=C
@@ -128,7 +129,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1502066455
+export SOURCE_DATE_EPOCH=1524966285
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
