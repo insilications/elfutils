@@ -6,7 +6,7 @@
 #
 Name     : elfutils
 Version  : 0.170
-Release  : 43
+Release  : 44
 URL      : https://sourceware.org/elfutils/ftp/0.170/elfutils-0.170.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.170/elfutils-0.170.tar.bz2
 Source99 : https://sourceware.org/elfutils/ftp/0.170/elfutils-0.170.tar.bz2.sig
@@ -70,6 +70,14 @@ Requires: elfutils-dev
 dev32 components for the elfutils package.
 
 
+%package extras
+Summary: extras components for the elfutils package.
+Group: Default
+
+%description extras
+extras components for the elfutils package.
+
+
 %package lib
 Summary: lib components for the elfutils package.
 Group: Libraries
@@ -105,7 +113,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1524966285
+export SOURCE_DATE_EPOCH=1525020926
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs "
 export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs "
 export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs "
@@ -129,7 +137,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1524966285
+export SOURCE_DATE_EPOCH=1525020926
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
@@ -192,18 +200,12 @@ popd
 /usr/lib32/pkgconfig/libdw.pc
 /usr/lib32/pkgconfig/libelf.pc
 
-%files lib
+%files extras
 %defattr(-,root,root,-)
-/usr/lib64/elfutils/libebl_aarch64-0.170.so
-/usr/lib64/elfutils/libebl_aarch64.so
 /usr/lib64/elfutils/libebl_alpha-0.170.so
 /usr/lib64/elfutils/libebl_alpha.so
 /usr/lib64/elfutils/libebl_arm-0.170.so
 /usr/lib64/elfutils/libebl_arm.so
-/usr/lib64/elfutils/libebl_bpf-0.170.so
-/usr/lib64/elfutils/libebl_bpf.so
-/usr/lib64/elfutils/libebl_i386-0.170.so
-/usr/lib64/elfutils/libebl_i386.so
 /usr/lib64/elfutils/libebl_ia64-0.170.so
 /usr/lib64/elfutils/libebl_ia64.so
 /usr/lib64/elfutils/libebl_m68k-0.170.so
@@ -220,6 +222,35 @@ popd
 /usr/lib64/elfutils/libebl_sparc.so
 /usr/lib64/elfutils/libebl_tilegx-0.170.so
 /usr/lib64/elfutils/libebl_tilegx.so
+
+%files lib
+%defattr(-,root,root,-)
+%exclude /usr/lib64/elfutils/libebl_alpha-0.170.so
+%exclude /usr/lib64/elfutils/libebl_alpha.so
+%exclude /usr/lib64/elfutils/libebl_arm-0.170.so
+%exclude /usr/lib64/elfutils/libebl_arm.so
+%exclude /usr/lib64/elfutils/libebl_ia64-0.170.so
+%exclude /usr/lib64/elfutils/libebl_ia64.so
+%exclude /usr/lib64/elfutils/libebl_m68k-0.170.so
+%exclude /usr/lib64/elfutils/libebl_m68k.so
+%exclude /usr/lib64/elfutils/libebl_ppc-0.170.so
+%exclude /usr/lib64/elfutils/libebl_ppc.so
+%exclude /usr/lib64/elfutils/libebl_ppc64-0.170.so
+%exclude /usr/lib64/elfutils/libebl_ppc64.so
+%exclude /usr/lib64/elfutils/libebl_s390-0.170.so
+%exclude /usr/lib64/elfutils/libebl_s390.so
+%exclude /usr/lib64/elfutils/libebl_sh-0.170.so
+%exclude /usr/lib64/elfutils/libebl_sh.so
+%exclude /usr/lib64/elfutils/libebl_sparc-0.170.so
+%exclude /usr/lib64/elfutils/libebl_sparc.so
+%exclude /usr/lib64/elfutils/libebl_tilegx-0.170.so
+%exclude /usr/lib64/elfutils/libebl_tilegx.so
+/usr/lib64/elfutils/libebl_aarch64-0.170.so
+/usr/lib64/elfutils/libebl_aarch64.so
+/usr/lib64/elfutils/libebl_bpf-0.170.so
+/usr/lib64/elfutils/libebl_bpf.so
+/usr/lib64/elfutils/libebl_i386-0.170.so
+/usr/lib64/elfutils/libebl_i386.so
 /usr/lib64/elfutils/libebl_x86_64-0.170.so
 /usr/lib64/elfutils/libebl_x86_64.so
 /usr/lib64/libasm-0.170.so
