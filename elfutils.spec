@@ -6,7 +6,7 @@
 #
 Name     : elfutils
 Version  : 0.171
-Release  : 49
+Release  : 50
 URL      : https://sourceware.org/elfutils/ftp/0.171/elfutils-0.171.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.171/elfutils-0.171.tar.bz2
 Source99 : https://sourceware.org/elfutils/ftp/0.171/elfutils-0.171.tar.bz2.sig
@@ -113,12 +113,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1528649302
+export SOURCE_DATE_EPOCH=1528649791
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
-%configure --disable-static --program-prefix=eu- --with-zlib  --without-lzma --without-bzlib
+%configure --disable-static --program-prefix=eu- --with-zlib  --with-lzma --without-bzlib
 make  %{?_smp_mflags}
 
 pushd ../build32/
@@ -126,7 +126,7 @@ export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 export CFLAGS="$CFLAGS -m32"
 export CXXFLAGS="$CXXFLAGS -m32"
 export LDFLAGS="$LDFLAGS -m32"
-%configure --disable-static --program-prefix=eu- --with-zlib  --without-lzma --without-bzlib   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+%configure --disable-static --program-prefix=eu- --with-zlib  --with-lzma --without-bzlib   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}
 popd
 %check
@@ -137,7 +137,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1528649302
+export SOURCE_DATE_EPOCH=1528649791
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
