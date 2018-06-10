@@ -4,4 +4,3 @@ Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CFLAGS
 Configure miss: i686-generic-linux-gnu-readelf
 Configure miss: whether fts.h is bad when included (with LFS)
 Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CFLAGS
-Configure miss: library containing BZ2_bzdopen
