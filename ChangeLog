@@ -1,4 +1,9 @@
-2018-05-29  Mark Wielaard  <mark@klomp.org>
+2018-06-11  Mark Wielaard  <mark@klomp.org>
+
+	* configure.ac: Set version to 0.172.
+	* NEWS: Mention bug fixes.
+
+2018-06-01  Mark Wielaard  <mark@klomp.org>
 
 	* configure.ac: Set version to 0.171.
 	* NEWS: Mention DWARF5, split-dwarf and GNU DebugFission support.
