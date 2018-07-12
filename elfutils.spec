@@ -6,7 +6,7 @@
 #
 Name     : elfutils
 Version  : 0.173
-Release  : 52
+Release  : 53
 URL      : https://sourceware.org/elfutils/ftp/0.173/elfutils-0.173.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.173/elfutils-0.173.tar.bz2
 Source99 : https://sourceware.org/elfutils/ftp/0.173/elfutils-0.173.tar.bz2.sig
