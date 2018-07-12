@@ -53,6 +53,7 @@ libdw.so.1:ELFUTILS_0.165
 libdw.so.1:ELFUTILS_0.167
 libdw.so.1:ELFUTILS_0.170
 libdw.so.1:ELFUTILS_0.171
+libdw.so.1:ELFUTILS_0.173
 libdw.so.1:dwarf_abbrevhaschildren
 libdw.so.1:dwarf_addrdie
 libdw.so.1:dwarf_aggregate_size
@@ -161,6 +162,7 @@ libdw.so.1:dwarf_macro_param1
 libdw.so.1:dwarf_macro_param2
 libdw.so.1:dwarf_new_oom_handler
 libdw.so.1:dwarf_next_cfi
+libdw.so.1:dwarf_next_lines
 libdw.so.1:dwarf_next_unit
 libdw.so.1:dwarf_nextcu
 libdw.so.1:dwarf_offabbrev
