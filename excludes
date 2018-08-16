@@ -9,3 +9,7 @@
 /usr/bin/stack
 /usr/bin/strings
 /usr/bin/strip
+/usr/lib32/*.a
+/usr/lib64/libasm.a
+/usr/lib64/libdw.a
+/usr/lib64/libelf.a

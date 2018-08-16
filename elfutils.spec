@@ -4,9 +4,10 @@
 #
 # Source0 file verified with key 0x8370665B57816A6A (mjw@gnu.org)
 #
+%define keepstatic 1
 Name     : elfutils
 Version  : 0.173
-Release  : 54
+Release  : 55
 URL      : https://sourceware.org/elfutils/ftp/0.173/elfutils-0.173.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.173/elfutils-0.173.tar.bz2
 Source99 : https://sourceware.org/elfutils/ftp/0.173/elfutils-0.173.tar.bz2.sig
@@ -125,12 +126,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1534454937
+export SOURCE_DATE_EPOCH=1534457196
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
-%configure --disable-static --program-prefix=eu- --with-zlib  --with-lzma --without-bzlib
+%configure  --program-prefix=eu- --with-zlib  --with-lzma --without-bzlib
 make  %{?_smp_mflags}
 
 pushd ../build32/
@@ -138,7 +139,7 @@ export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 export CFLAGS="$CFLAGS -m32"
 export CXXFLAGS="$CXXFLAGS -m32"
 export LDFLAGS="$LDFLAGS -m32"
-%configure --disable-static --program-prefix=eu- --with-zlib  --with-lzma --without-bzlib   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+%configure  --program-prefix=eu- --with-zlib  --with-lzma --without-bzlib   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}
 popd
 %check
@@ -151,7 +152,7 @@ cd ../build32;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1534456673
+export SOURCE_DATE_EPOCH=1534457196
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/elfutils
 cp COPYING %{buildroot}/usr/share/doc/elfutils/COPYING
@@ -193,6 +194,9 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
+%exclude /usr/lib64/libasm.a
+%exclude /usr/lib64/libdw.a
+%exclude /usr/lib64/libelf.a
 /usr/include/*.h
 /usr/include/elfutils/elf-knowledge.h
 /usr/include/elfutils/known-dwarf.h
@@ -202,6 +206,7 @@ popd
 /usr/include/elfutils/libdwfl.h
 /usr/include/elfutils/libebl.h
 /usr/include/elfutils/version.h
+/usr/lib64/*.a
 /usr/lib64/libasm.so
 /usr/lib64/libdw.so
 /usr/lib64/libelf.so
@@ -210,6 +215,7 @@ popd
 
 %files dev32
 %defattr(-,root,root,-)
+/usr/lib32/*.a
 /usr/lib32/libasm.so
 /usr/lib32/libdw.so
 /usr/lib32/libelf.so
