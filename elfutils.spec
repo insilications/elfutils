@@ -6,7 +6,7 @@
 #
 Name     : elfutils
 Version  : 0.173
-Release  : 53
+Release  : 54
 URL      : https://sourceware.org/elfutils/ftp/0.173/elfutils-0.173.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.173/elfutils-0.173.tar.bz2
 Source99 : https://sourceware.org/elfutils/ftp/0.173/elfutils-0.173.tar.bz2.sig
@@ -125,7 +125,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1531407293
+export SOURCE_DATE_EPOCH=1534454937
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -147,14 +147,16 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
+cd ../build32;
+make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1531407293
+export SOURCE_DATE_EPOCH=1534456673
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/elfutils
 cp COPYING %{buildroot}/usr/share/doc/elfutils/COPYING
-cp COPYING-LGPLV3 %{buildroot}/usr/share/doc/elfutils/COPYING-LGPLV3
 cp COPYING-GPLV2 %{buildroot}/usr/share/doc/elfutils/COPYING-GPLV2
+cp COPYING-LGPLV3 %{buildroot}/usr/share/doc/elfutils/COPYING-LGPLV3
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -218,47 +220,57 @@ popd
 
 %files extras
 %defattr(-,root,root,-)
+/usr/lib64/elfutils/libebl_alpha-0.173.so
 /usr/lib64/elfutils/libebl_alpha.so
+/usr/lib64/elfutils/libebl_arm-0.173.so
 /usr/lib64/elfutils/libebl_arm.so
+/usr/lib64/elfutils/libebl_ia64-0.173.so
 /usr/lib64/elfutils/libebl_ia64.so
+/usr/lib64/elfutils/libebl_m68k-0.173.so
 /usr/lib64/elfutils/libebl_m68k.so
+/usr/lib64/elfutils/libebl_ppc-0.173.so
 /usr/lib64/elfutils/libebl_ppc.so
+/usr/lib64/elfutils/libebl_ppc64-0.173.so
 /usr/lib64/elfutils/libebl_ppc64.so
+/usr/lib64/elfutils/libebl_s390-0.173.so
 /usr/lib64/elfutils/libebl_s390.so
+/usr/lib64/elfutils/libebl_sh-0.173.so
 /usr/lib64/elfutils/libebl_sh.so
+/usr/lib64/elfutils/libebl_sparc-0.173.so
 /usr/lib64/elfutils/libebl_sparc.so
+/usr/lib64/elfutils/libebl_tilegx-0.173.so
 /usr/lib64/elfutils/libebl_tilegx.so
 
 %files lib
 %defattr(-,root,root,-)
+%exclude /usr/lib64/elfutils/libebl_alpha-0.173.so
 %exclude /usr/lib64/elfutils/libebl_alpha.so
+%exclude /usr/lib64/elfutils/libebl_arm-0.173.so
 %exclude /usr/lib64/elfutils/libebl_arm.so
+%exclude /usr/lib64/elfutils/libebl_ia64-0.173.so
 %exclude /usr/lib64/elfutils/libebl_ia64.so
+%exclude /usr/lib64/elfutils/libebl_m68k-0.173.so
 %exclude /usr/lib64/elfutils/libebl_m68k.so
+%exclude /usr/lib64/elfutils/libebl_ppc-0.173.so
 %exclude /usr/lib64/elfutils/libebl_ppc.so
+%exclude /usr/lib64/elfutils/libebl_ppc64-0.173.so
 %exclude /usr/lib64/elfutils/libebl_ppc64.so
+%exclude /usr/lib64/elfutils/libebl_s390-0.173.so
 %exclude /usr/lib64/elfutils/libebl_s390.so
+%exclude /usr/lib64/elfutils/libebl_sh-0.173.so
 %exclude /usr/lib64/elfutils/libebl_sh.so
+%exclude /usr/lib64/elfutils/libebl_sparc-0.173.so
 %exclude /usr/lib64/elfutils/libebl_sparc.so
+%exclude /usr/lib64/elfutils/libebl_tilegx-0.173.so
 %exclude /usr/lib64/elfutils/libebl_tilegx.so
 /usr/lib64/elfutils/libebl_aarch64-0.173.so
 /usr/lib64/elfutils/libebl_aarch64.so
-/usr/lib64/elfutils/libebl_alpha-0.173.so
-/usr/lib64/elfutils/libebl_arm-0.173.so
 /usr/lib64/elfutils/libebl_bpf-0.173.so
 /usr/lib64/elfutils/libebl_bpf.so
 /usr/lib64/elfutils/libebl_i386-0.173.so
 /usr/lib64/elfutils/libebl_i386.so
-/usr/lib64/elfutils/libebl_ia64-0.173.so
-/usr/lib64/elfutils/libebl_m68k-0.173.so
-/usr/lib64/elfutils/libebl_ppc-0.173.so
-/usr/lib64/elfutils/libebl_ppc64-0.173.so
 /usr/lib64/elfutils/libebl_riscv-0.173.so
 /usr/lib64/elfutils/libebl_riscv.so
-/usr/lib64/elfutils/libebl_s390-0.173.so
-/usr/lib64/elfutils/libebl_sh-0.173.so
-/usr/lib64/elfutils/libebl_sparc-0.173.so
-/usr/lib64/elfutils/libebl_tilegx-0.173.so
 /usr/lib64/elfutils/libebl_x86_64-0.173.so
 /usr/lib64/elfutils/libebl_x86_64.so
 /usr/lib64/libasm-0.173.so
