@@ -2,3 +2,5 @@ cve-2018-8769.nopatch
 CVE-2019-7150.patch
 CVE-2019-7149.patch
 CVE-2019-7146.patch
+CVE-2019-7665.patch
+CVE-2019-7664.patch

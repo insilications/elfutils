@@ -7,7 +7,7 @@
 %define keepstatic 1
 Name     : elfutils
 Version  : 0.175
-Release  : 60
+Release  : 61
 URL      : https://sourceware.org/elfutils/ftp/0.175/elfutils-0.175.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.175/elfutils-0.175.tar.bz2
 Source99 : https://sourceware.org/elfutils/ftp/0.175/elfutils-0.175.tar.bz2.sig
@@ -34,6 +34,8 @@ Patch1: cve-2018-8769.nopatch
 Patch2: CVE-2019-7150.patch
 Patch3: CVE-2019-7149.patch
 Patch4: CVE-2019-7146.patch
+Patch5: CVE-2019-7665.patch
+Patch6: CVE-2019-7664.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -123,6 +125,8 @@ locales components for the elfutils package.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
+%patch6 -p1
 pushd ..
 cp -a elfutils-0.175 build32
 popd
@@ -132,7 +136,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1549067691
+export SOURCE_DATE_EPOCH=1549915248
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -159,7 +163,7 @@ cd ../build32;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1549067691
+export SOURCE_DATE_EPOCH=1549915248
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/elfutils
 cp COPYING %{buildroot}/usr/share/package-licenses/elfutils/COPYING
