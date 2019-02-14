@@ -7,7 +7,7 @@
 %define keepstatic 1
 Name     : elfutils
 Version  : 0.175
-Release  : 61
+Release  : 62
 URL      : https://sourceware.org/elfutils/ftp/0.175/elfutils-0.175.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.175/elfutils-0.175.tar.bz2
 Source99 : https://sourceware.org/elfutils/ftp/0.175/elfutils-0.175.tar.bz2.sig
