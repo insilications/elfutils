@@ -7,7 +7,7 @@
 %define keepstatic 1
 Name     : elfutils
 Version  : 0.176
-Release  : 63
+Release  : 64
 URL      : https://sourceware.org/elfutils/ftp/0.176/elfutils-0.176.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.176/elfutils-0.176.tar.bz2
 Source99 : https://sourceware.org/elfutils/ftp/0.176/elfutils-0.176.tar.bz2.sig
@@ -18,6 +18,7 @@ Requires: elfutils-bin = %{version}-%{release}
 Requires: elfutils-lib = %{version}-%{release}
 Requires: elfutils-license = %{version}-%{release}
 Requires: elfutils-locales = %{version}-%{release}
+Requires: elfutils-staticdev32 = %{version}-%{release}
 BuildRequires : bison
 BuildRequires : bzip2-dev
 BuildRequires : flex
@@ -57,6 +58,8 @@ Group: Development
 Requires: elfutils-lib = %{version}-%{release}
 Requires: elfutils-bin = %{version}-%{release}
 Provides: elfutils-devel = %{version}-%{release}
+Requires: elfutils = %{version}-%{release}
+Requires: elfutils = %{version}-%{release}
 
 %description dev
 dev components for the elfutils package.
@@ -115,6 +118,24 @@ Group: Default
 locales components for the elfutils package.
 
 
+%package staticdev
+Summary: staticdev components for the elfutils package.
+Group: Default
+Requires: elfutils-dev = %{version}-%{release}
+Requires: elfutils-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the elfutils package.
+
+
+%package staticdev32
+Summary: staticdev32 components for the elfutils package.
+Group: Default
+
+%description staticdev32
+staticdev32 components for the elfutils package.
+
+
 %prep
 %setup -q -n elfutils-0.176
 pushd ..
@@ -126,20 +147,20 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1550355144
-export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
+export SOURCE_DATE_EPOCH=1557670494
+export CFLAGS="$CFLAGS -Os -fcf-protection=full -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong "
+export FCFLAGS="$CFLAGS -Os -fcf-protection=full -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong "
+export FFLAGS="$CFLAGS -Os -fcf-protection=full -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong "
+export CXXFLAGS="$CXXFLAGS -Os -fcf-protection=full -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong "
 %configure  --program-prefix=eu- --with-zlib  --with-lzma --without-bzlib
 make  %{?_smp_mflags}
 
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
-export ASFLAGS="$ASFLAGS --32"
-export CFLAGS="$CFLAGS -m32"
-export CXXFLAGS="$CXXFLAGS -m32"
-export LDFLAGS="$LDFLAGS -m32"
+export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32"
+export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32"
+export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32"
 %configure  --program-prefix=eu- --with-zlib  --with-lzma --without-bzlib   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}
 popd
@@ -153,7 +174,7 @@ cd ../build32;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1550355144
+export SOURCE_DATE_EPOCH=1557670494
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/elfutils
 cp COPYING %{buildroot}/usr/share/package-licenses/elfutils/COPYING
@@ -195,9 +216,6 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
-%exclude /usr/lib64/libasm.a
-%exclude /usr/lib64/libdw.a
-%exclude /usr/lib64/libelf.a
 /usr/include/*.h
 /usr/include/elfutils/elf-knowledge.h
 /usr/include/elfutils/known-dwarf.h
@@ -207,7 +225,6 @@ popd
 /usr/include/elfutils/libdwfl.h
 /usr/include/elfutils/libebl.h
 /usr/include/elfutils/version.h
-/usr/lib64/*.a
 /usr/lib64/libasm.so
 /usr/lib64/libdw.so
 /usr/lib64/libelf.so
@@ -216,7 +233,6 @@ popd
 
 %files dev32
 %defattr(-,root,root,-)
-/usr/lib32/*.a
 /usr/lib32/libasm.so
 /usr/lib32/libdw.so
 /usr/lib32/libelf.so
@@ -331,6 +347,20 @@ popd
 /usr/share/package-licenses/elfutils/COPYING
 /usr/share/package-licenses/elfutils/COPYING-GPLV2
 /usr/share/package-licenses/elfutils/COPYING-LGPLV3
+
+%files staticdev
+%defattr(-,root,root,-)
+%exclude /usr/lib64/libasm.a
+%exclude /usr/lib64/libdw.a
+%exclude /usr/lib64/libelf.a
+/usr/lib64/libebl.a
+
+%files staticdev32
+%defattr(-,root,root,-)
+/usr/lib32/libasm.a
+/usr/lib32/libdw.a
+/usr/lib32/libebl.a
+/usr/lib32/libelf.a
 
 %files locales -f elfutils.lang
 %defattr(-,root,root,-)
