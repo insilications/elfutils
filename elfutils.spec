@@ -7,7 +7,7 @@
 %define keepstatic 1
 Name     : elfutils
 Version  : 0.177
-Release  : 65
+Release  : 66
 URL      : https://sourceware.org/elfutils/ftp/0.177/elfutils-0.177.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.177/elfutils-0.177.tar.bz2
 Source1 : https://sourceware.org/elfutils/ftp/0.177/elfutils-0.177.tar.bz2.sig
@@ -138,7 +138,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1566160539
+export SOURCE_DATE_EPOCH=1568855234
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -150,9 +150,9 @@ make  %{?_smp_mflags}
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
-export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32"
-export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32"
-export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32"
+export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
 %configure  --program-prefix=eu- --with-zlib  --with-lzma --without-bzlib   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}
 popd
@@ -166,7 +166,7 @@ cd ../build32;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1566160539
+export SOURCE_DATE_EPOCH=1568855234
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/elfutils
 cp COPYING %{buildroot}/usr/share/package-licenses/elfutils/COPYING
@@ -225,7 +225,7 @@ rm -f %{buildroot}/usr/lib64/libelf.a
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/*.h
+/usr/include/dwarf.h
 /usr/include/elfutils/elf-knowledge.h
 /usr/include/elfutils/known-dwarf.h
 /usr/include/elfutils/libasm.h
@@ -234,6 +234,9 @@ rm -f %{buildroot}/usr/lib64/libelf.a
 /usr/include/elfutils/libdwfl.h
 /usr/include/elfutils/libebl.h
 /usr/include/elfutils/version.h
+/usr/include/gelf.h
+/usr/include/libelf.h
+/usr/include/nlist.h
 /usr/lib64/libasm.so
 /usr/lib64/libdw.so
 /usr/lib64/libelf.so
