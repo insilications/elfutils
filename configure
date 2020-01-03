@@ -1,1 +1,5 @@
---program-prefix=eu- --with-zlib  --with-lzma --without-bzlib
+--program-prefix=eu-
+--with-zlib
+--with-lzma
+--without-bzlib
+--disable-debuginfod

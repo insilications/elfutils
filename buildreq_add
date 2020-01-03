@@ -1,11 +1,13 @@
-#
-# This file contains extra pkgconfig build requirements that don't get picked up but are 
-# desirable. One name per line, no whitespace.
-#
-xz-dev
+# This file contains additional build requirements that did not get picked up
+# automatically. One name per line, no whitespace.
+bison
 bzip2-dev
+flex
+flex-dev
+pkg-config
+procps-ng
+util-linux
+xz-dev
+xz-dev32
 zlib-dev
 zlib-dev32
-xz-dev32
-util-linux
-procps-ng
