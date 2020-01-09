@@ -7,7 +7,7 @@
 %define keepstatic 1
 Name     : elfutils
 Version  : 0.178
-Release  : 67
+Release  : 68
 URL      : https://sourceware.org/elfutils/ftp/0.178/elfutils-0.178.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.178/elfutils-0.178.tar.bz2
 Source1  : https://sourceware.org/elfutils/ftp/0.178/elfutils-0.178.tar.bz2.sig
@@ -130,7 +130,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1578093071
+export SOURCE_DATE_EPOCH=1578600186
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -166,7 +166,7 @@ cd ../build32;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1578093071
+export SOURCE_DATE_EPOCH=1578600186
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/elfutils
 cp %{_builddir}/elfutils-0.178/COPYING %{buildroot}/usr/share/package-licenses/elfutils/8624bcdae55baeef00cd11d5dfcfa60f68710a02
@@ -200,6 +200,9 @@ rm -f %{buildroot}/usr/lib32/*.a
 rm -f %{buildroot}/usr/lib64/libasm.a
 rm -f %{buildroot}/usr/lib64/libdw.a
 rm -f %{buildroot}/usr/lib64/libelf.a
+rm -f %{buildroot}/usr/lib64/pkgconfig/libdebuginfod.pc
+rm -f %{buildroot}/usr/lib32/pkgconfig/32libdebuginfod.pc
+rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 
 %files
 %defattr(-,root,root,-)
@@ -240,7 +243,6 @@ rm -f %{buildroot}/usr/lib64/libelf.a
 /usr/lib64/libasm.so
 /usr/lib64/libdw.so
 /usr/lib64/libelf.so
-/usr/lib64/pkgconfig/libdebuginfod.pc
 /usr/lib64/pkgconfig/libdw.pc
 /usr/lib64/pkgconfig/libelf.pc
 /usr/share/man/man3/elf_begin.3
@@ -253,10 +255,8 @@ rm -f %{buildroot}/usr/lib64/libelf.a
 /usr/lib32/libasm.so
 /usr/lib32/libdw.so
 /usr/lib32/libelf.so
-/usr/lib32/pkgconfig/32libdebuginfod.pc
 /usr/lib32/pkgconfig/32libdw.pc
 /usr/lib32/pkgconfig/32libelf.pc
-/usr/lib32/pkgconfig/libdebuginfod.pc
 /usr/lib32/pkgconfig/libdw.pc
 /usr/lib32/pkgconfig/libelf.pc
 
