@@ -6,11 +6,11 @@
 #
 %define keepstatic 1
 Name     : elfutils
-Version  : 0.178
-Release  : 68
-URL      : https://sourceware.org/elfutils/ftp/0.178/elfutils-0.178.tar.bz2
-Source0  : https://sourceware.org/elfutils/ftp/0.178/elfutils-0.178.tar.bz2
-Source1  : https://sourceware.org/elfutils/ftp/0.178/elfutils-0.178.tar.bz2.sig
+Version  : 0.179
+Release  : 69
+URL      : https://sourceware.org/elfutils/ftp/0.179/elfutils-0.179.tar.bz2
+Source0  : https://sourceware.org/elfutils/ftp/0.179/elfutils-0.179.tar.bz2
+Source1  : https://sourceware.org/elfutils/ftp/0.179/elfutils-0.179.tar.bz2.sig
 Summary  : A collection of utilities and DSOs to handle ELF files and DWARF data
 Group    : Development/Tools
 License  : GFDL-1.3 GPL-2.0 GPL-2.0+ GPL-3.0 GPL-3.0+ LGPL-3.0 LGPL-3.0+
@@ -119,10 +119,10 @@ man components for the elfutils package.
 
 
 %prep
-%setup -q -n elfutils-0.178
-cd %{_builddir}/elfutils-0.178
+%setup -q -n elfutils-0.179
+cd %{_builddir}/elfutils-0.179
 pushd ..
-cp -a elfutils-0.178 build32
+cp -a elfutils-0.179 build32
 popd
 
 %build
@@ -130,7 +130,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1578600186
+export SOURCE_DATE_EPOCH=1585936074
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -166,13 +166,13 @@ cd ../build32;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1578600186
+export SOURCE_DATE_EPOCH=1585936074
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/elfutils
-cp %{_builddir}/elfutils-0.178/COPYING %{buildroot}/usr/share/package-licenses/elfutils/8624bcdae55baeef00cd11d5dfcfa60f68710a02
-cp %{_builddir}/elfutils-0.178/COPYING-GPLV2 %{buildroot}/usr/share/package-licenses/elfutils/4cc77b90af91e615a64ae04893fdffa7939db84c
-cp %{_builddir}/elfutils-0.178/COPYING-LGPLV3 %{buildroot}/usr/share/package-licenses/elfutils/f45ee1c765646813b442ca58de72e20a64a7ddba
-cp %{_builddir}/elfutils-0.178/doc/COPYING-GFDL %{buildroot}/usr/share/package-licenses/elfutils/4c0910524984176680adb6b68de639864bc1f8d0
+cp %{_builddir}/elfutils-0.179/COPYING %{buildroot}/usr/share/package-licenses/elfutils/8624bcdae55baeef00cd11d5dfcfa60f68710a02
+cp %{_builddir}/elfutils-0.179/COPYING-GPLV2 %{buildroot}/usr/share/package-licenses/elfutils/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/elfutils-0.179/COPYING-LGPLV3 %{buildroot}/usr/share/package-licenses/elfutils/f45ee1c765646813b442ca58de72e20a64a7ddba
+cp %{_builddir}/elfutils-0.179/doc/COPYING-GFDL %{buildroot}/usr/share/package-licenses/elfutils/4c0910524984176680adb6b68de639864bc1f8d0
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -262,20 +262,20 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/libasm-0.178.so
+/usr/lib64/libasm-0.179.so
 /usr/lib64/libasm.so.1
-/usr/lib64/libdw-0.178.so
+/usr/lib64/libdw-0.179.so
 /usr/lib64/libdw.so.1
-/usr/lib64/libelf-0.178.so
+/usr/lib64/libelf-0.179.so
 /usr/lib64/libelf.so.1
 
 %files lib32
 %defattr(-,root,root,-)
-/usr/lib32/libasm-0.178.so
+/usr/lib32/libasm-0.179.so
 /usr/lib32/libasm.so.1
-/usr/lib32/libdw-0.178.so
+/usr/lib32/libdw-0.179.so
 /usr/lib32/libdw.so.1
-/usr/lib32/libelf-0.178.so
+/usr/lib32/libelf-0.179.so
 /usr/lib32/libelf.so.1
 
 %files license
