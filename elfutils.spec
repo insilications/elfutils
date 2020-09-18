@@ -6,11 +6,11 @@
 #
 %define keepstatic 1
 Name     : elfutils
-Version  : 0.180
-Release  : 70
-URL      : https://sourceware.org/elfutils/ftp/0.180/elfutils-0.180.tar.bz2
-Source0  : https://sourceware.org/elfutils/ftp/0.180/elfutils-0.180.tar.bz2
-Source1  : https://sourceware.org/elfutils/ftp/0.180/elfutils-0.180.tar.bz2.sig
+Version  : 0.181
+Release  : 71
+URL      : https://sourceware.org/elfutils/ftp/0.181/elfutils-0.181.tar.bz2
+Source0  : https://sourceware.org/elfutils/ftp/0.181/elfutils-0.181.tar.bz2
+Source1  : https://sourceware.org/elfutils/ftp/0.181/elfutils-0.181.tar.bz2.sig
 Summary  : A collection of utilities and DSOs to handle ELF files and DWARF data
 Group    : Development/Tools
 License  : GFDL-1.3 GPL-2.0 GPL-2.0+ GPL-3.0 GPL-3.0+ LGPL-3.0 LGPL-3.0+
@@ -29,6 +29,8 @@ BuildRequires : gcc-libstdc++32
 BuildRequires : glibc-dev32
 BuildRequires : glibc-libc32
 BuildRequires : pkg-config
+BuildRequires : pkgconfig(32libcurl)
+BuildRequires : pkgconfig(libcurl)
 BuildRequires : procps-ng
 BuildRequires : util-linux
 BuildRequires : xz-dev
@@ -119,10 +121,10 @@ man components for the elfutils package.
 
 
 %prep
-%setup -q -n elfutils-0.180
-cd %{_builddir}/elfutils-0.180
+%setup -q -n elfutils-0.181
+cd %{_builddir}/elfutils-0.181
 pushd ..
-cp -a elfutils-0.180 build32
+cp -a elfutils-0.181 build32
 popd
 
 %build
@@ -130,7 +132,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1591913313
+export SOURCE_DATE_EPOCH=1600450334
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -161,18 +163,18 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check || :
+make %{?_smp_mflags} check || :
 cd ../build32;
-make VERBOSE=1 V=1 %{?_smp_mflags} check || : || :
+make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1591913313
+export SOURCE_DATE_EPOCH=1600450334
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/elfutils
-cp %{_builddir}/elfutils-0.180/COPYING %{buildroot}/usr/share/package-licenses/elfutils/8624bcdae55baeef00cd11d5dfcfa60f68710a02
-cp %{_builddir}/elfutils-0.180/COPYING-GPLV2 %{buildroot}/usr/share/package-licenses/elfutils/4cc77b90af91e615a64ae04893fdffa7939db84c
-cp %{_builddir}/elfutils-0.180/COPYING-LGPLV3 %{buildroot}/usr/share/package-licenses/elfutils/f45ee1c765646813b442ca58de72e20a64a7ddba
-cp %{_builddir}/elfutils-0.180/doc/COPYING-GFDL %{buildroot}/usr/share/package-licenses/elfutils/4c0910524984176680adb6b68de639864bc1f8d0
+cp %{_builddir}/elfutils-0.181/COPYING %{buildroot}/usr/share/package-licenses/elfutils/8624bcdae55baeef00cd11d5dfcfa60f68710a02
+cp %{_builddir}/elfutils-0.181/COPYING-GPLV2 %{buildroot}/usr/share/package-licenses/elfutils/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/elfutils-0.181/COPYING-LGPLV3 %{buildroot}/usr/share/package-licenses/elfutils/f45ee1c765646813b442ca58de72e20a64a7ddba
+cp %{_builddir}/elfutils-0.181/doc/COPYING-GFDL %{buildroot}/usr/share/package-licenses/elfutils/4c0910524984176680adb6b68de639864bc1f8d0
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -209,6 +211,7 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 
 %files bin
 %defattr(-,root,root,-)
+/usr/bin/debuginfod-find
 /usr/bin/eu-addr2line
 /usr/bin/eu-ar
 /usr/bin/eu-elfclassify
@@ -230,6 +233,7 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 %files dev
 %defattr(-,root,root,-)
 /usr/include/dwarf.h
+/usr/include/elfutils/debuginfod.h
 /usr/include/elfutils/elf-knowledge.h
 /usr/include/elfutils/known-dwarf.h
 /usr/include/elfutils/libasm.h
@@ -241,10 +245,22 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 /usr/include/libelf.h
 /usr/include/nlist.h
 /usr/lib64/libasm.so
+/usr/lib64/libdebuginfod-0.181.so
+/usr/lib64/libdebuginfod.so
 /usr/lib64/libdw.so
 /usr/lib64/libelf.so
 /usr/lib64/pkgconfig/libdw.pc
 /usr/lib64/pkgconfig/libelf.pc
+/usr/share/man/man3/debuginfod_add_http_header.3
+/usr/share/man/man3/debuginfod_begin.3
+/usr/share/man/man3/debuginfod_end.3
+/usr/share/man/man3/debuginfod_find_debuginfo.3
+/usr/share/man/man3/debuginfod_find_executable.3
+/usr/share/man/man3/debuginfod_find_source.3
+/usr/share/man/man3/debuginfod_get_url.3
+/usr/share/man/man3/debuginfod_get_user_data.3
+/usr/share/man/man3/debuginfod_set_progressfn.3
+/usr/share/man/man3/debuginfod_set_user_data.3
 /usr/share/man/man3/elf_begin.3
 /usr/share/man/man3/elf_clone.3
 /usr/share/man/man3/elf_getdata.3
@@ -253,6 +269,8 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 %files dev32
 %defattr(-,root,root,-)
 /usr/lib32/libasm.so
+/usr/lib32/libdebuginfod-0.181.so
+/usr/lib32/libdebuginfod.so
 /usr/lib32/libdw.so
 /usr/lib32/libelf.so
 /usr/lib32/pkgconfig/32libdw.pc
@@ -262,20 +280,22 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/libasm-0.180.so
+/usr/lib64/libasm-0.181.so
 /usr/lib64/libasm.so.1
-/usr/lib64/libdw-0.180.so
+/usr/lib64/libdebuginfod.so.1
+/usr/lib64/libdw-0.181.so
 /usr/lib64/libdw.so.1
-/usr/lib64/libelf-0.180.so
+/usr/lib64/libelf-0.181.so
 /usr/lib64/libelf.so.1
 
 %files lib32
 %defattr(-,root,root,-)
-/usr/lib32/libasm-0.180.so
+/usr/lib32/libasm-0.181.so
 /usr/lib32/libasm.so.1
-/usr/lib32/libdw-0.180.so
+/usr/lib32/libdebuginfod.so.1
+/usr/lib32/libdw-0.181.so
 /usr/lib32/libdw.so.1
-/usr/lib32/libelf-0.180.so
+/usr/lib32/libelf-0.181.so
 /usr/lib32/libelf.so.1
 
 %files license
@@ -287,6 +307,7 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 
 %files man
 %defattr(0644,root,root,0755)
+/usr/share/man/man1/debuginfod-find.1
 /usr/share/man/man1/eu-elfclassify.1
 /usr/share/man/man1/eu-readelf.1
 
