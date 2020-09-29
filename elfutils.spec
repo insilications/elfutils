@@ -7,7 +7,7 @@
 %define keepstatic 1
 Name     : elfutils
 Version  : 0.181
-Release  : 71
+Release  : 72
 URL      : https://sourceware.org/elfutils/ftp/0.181/elfutils-0.181.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.181/elfutils-0.181.tar.bz2
 Source1  : https://sourceware.org/elfutils/ftp/0.181/elfutils-0.181.tar.bz2.sig
@@ -132,7 +132,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1600450334
+export SOURCE_DATE_EPOCH=1601401140
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -142,7 +142,8 @@ export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno
 --with-zlib \
 --with-lzma \
 --without-bzlib \
---disable-debuginfod
+--disable-debuginfod \
+--disable-libdebuginfod
 make  %{?_smp_mflags}
 
 pushd ../build32/
@@ -155,7 +156,8 @@ export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
 --with-zlib \
 --with-lzma \
 --without-bzlib \
---disable-debuginfod   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+--disable-debuginfod \
+--disable-libdebuginfod   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}
 popd
 %check
@@ -168,7 +170,7 @@ cd ../build32;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1600450334
+export SOURCE_DATE_EPOCH=1601401140
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/elfutils
 cp %{_builddir}/elfutils-0.181/COPYING %{buildroot}/usr/share/package-licenses/elfutils/8624bcdae55baeef00cd11d5dfcfa60f68710a02
@@ -211,7 +213,6 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 
 %files bin
 %defattr(-,root,root,-)
-/usr/bin/debuginfod-find
 /usr/bin/eu-addr2line
 /usr/bin/eu-ar
 /usr/bin/eu-elfclassify
@@ -233,7 +234,6 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 %files dev
 %defattr(-,root,root,-)
 /usr/include/dwarf.h
-/usr/include/elfutils/debuginfod.h
 /usr/include/elfutils/elf-knowledge.h
 /usr/include/elfutils/known-dwarf.h
 /usr/include/elfutils/libasm.h
@@ -245,22 +245,10 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 /usr/include/libelf.h
 /usr/include/nlist.h
 /usr/lib64/libasm.so
-/usr/lib64/libdebuginfod-0.181.so
-/usr/lib64/libdebuginfod.so
 /usr/lib64/libdw.so
 /usr/lib64/libelf.so
 /usr/lib64/pkgconfig/libdw.pc
 /usr/lib64/pkgconfig/libelf.pc
-/usr/share/man/man3/debuginfod_add_http_header.3
-/usr/share/man/man3/debuginfod_begin.3
-/usr/share/man/man3/debuginfod_end.3
-/usr/share/man/man3/debuginfod_find_debuginfo.3
-/usr/share/man/man3/debuginfod_find_executable.3
-/usr/share/man/man3/debuginfod_find_source.3
-/usr/share/man/man3/debuginfod_get_url.3
-/usr/share/man/man3/debuginfod_get_user_data.3
-/usr/share/man/man3/debuginfod_set_progressfn.3
-/usr/share/man/man3/debuginfod_set_user_data.3
 /usr/share/man/man3/elf_begin.3
 /usr/share/man/man3/elf_clone.3
 /usr/share/man/man3/elf_getdata.3
@@ -269,8 +257,6 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 %files dev32
 %defattr(-,root,root,-)
 /usr/lib32/libasm.so
-/usr/lib32/libdebuginfod-0.181.so
-/usr/lib32/libdebuginfod.so
 /usr/lib32/libdw.so
 /usr/lib32/libelf.so
 /usr/lib32/pkgconfig/32libdw.pc
@@ -282,7 +268,6 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 %defattr(-,root,root,-)
 /usr/lib64/libasm-0.181.so
 /usr/lib64/libasm.so.1
-/usr/lib64/libdebuginfod.so.1
 /usr/lib64/libdw-0.181.so
 /usr/lib64/libdw.so.1
 /usr/lib64/libelf-0.181.so
@@ -292,7 +277,6 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 %defattr(-,root,root,-)
 /usr/lib32/libasm-0.181.so
 /usr/lib32/libasm.so.1
-/usr/lib32/libdebuginfod.so.1
 /usr/lib32/libdw-0.181.so
 /usr/lib32/libdw.so.1
 /usr/lib32/libelf-0.181.so
@@ -307,7 +291,6 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 
 %files man
 %defattr(0644,root,root,0755)
-/usr/share/man/man1/debuginfod-find.1
 /usr/share/man/man1/eu-elfclassify.1
 /usr/share/man/man1/eu-readelf.1
 

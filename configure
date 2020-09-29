@@ -3,3 +3,4 @@
 --with-lzma
 --without-bzlib
 --disable-debuginfod
+--disable-libdebuginfod
