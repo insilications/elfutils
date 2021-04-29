@@ -7,7 +7,7 @@
 %define keepstatic 1
 Name     : elfutils
 Version  : 0.183
-Release  : 75
+Release  : 76
 URL      : https://sourceware.org/elfutils/ftp/0.183/elfutils-0.183.tar.bz2
 Source0  : https://sourceware.org/elfutils/ftp/0.183/elfutils-0.183.tar.bz2
 Source1  : https://sourceware.org/elfutils/ftp/0.183/elfutils-0.183.tar.bz2.sig
@@ -134,10 +134,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
 export SOURCE_DATE_EPOCH=1612810009
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
+export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
+export FFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
+export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 %configure  --program-prefix=eu- \
 --with-zlib \
 --with-lzma \
