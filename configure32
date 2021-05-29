@@ -1,0 +1,10 @@
+--program-prefix=eu-
+--with-zlib
+--with-lzma
+--without-bzlib
+--disable-debuginfod
+--disable-libdebuginfod
+--libdir=/usr/lib32
+--build=i686-generic-linux-gnu
+--host=i686-generic-linux-gnu
+--target=i686-clr-linux-gnu
