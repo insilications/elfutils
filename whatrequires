@@ -1,4 +1,12 @@
 # This file contains recursive sources that require this package
 NetworkManager
+buildreq-kernel
+dpdk-dev
+dpdk-staticdev
+elfutils-dev
+elfutils-dev32
+elfutils-staticdev
+elfutils-staticdev32
+libbpf-dev
 libqb
 linux-tools
