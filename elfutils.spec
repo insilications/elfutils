@@ -271,8 +271,7 @@ export LIBS="${LIBS_GENERATE}"
 --without-bzlib \
 --disable-debuginfod \
 --disable-libdebuginfod \
---enable-maintainer-mode \
---enable-gcov
+--enable-maintainer-mode
 make  %{?_smp_mflags}  V=1 VERBOSE=1  V=1 VERBOSE=1
 
 ## profile_payload start
