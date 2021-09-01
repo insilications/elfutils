@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : elfutils
 Version  : 0.185
-Release  : 320
+Release  : 321
 URL      : file:///aot/build/clearlinux/packages/elfutils/elfutils-v0.185.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/elfutils/elfutils-v0.185.tar.gz
 Summary  : elfutils libelf library to read and write ELF files
@@ -140,6 +140,15 @@ Group: Default
 man components for the elfutils package.
 
 
+%package staticdev
+Summary: staticdev components for the elfutils package.
+Group: Default
+Requires: elfutils-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the elfutils package.
+
+
 %package staticdev32
 Summary: staticdev32 components for the elfutils package.
 Group: Default
@@ -162,7 +171,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1630468364
+export SOURCE_DATE_EPOCH=1630472130
 unset LD_AS_NEEDED
 export GCC_IGNORE_WERROR=1
 ## altflags_pgof content
@@ -269,7 +278,6 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1  V=1 VERBOSE=1
 ## profile_payload start
 unset LD_LIBRARY_PATH
 unset LIBRARY_PATH
-exit 0
 export DISPLAY=:0
 export __GL_SYNC_TO_VBLANK=0
 export __GL_SYNC_DISPLAY_DEVICE=DFP-1
@@ -358,7 +366,7 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1  V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1630468364
+export SOURCE_DATE_EPOCH=1630472130
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
@@ -383,9 +391,6 @@ rm -f %{buildroot}/usr/bin/size
 rm -f %{buildroot}/usr/bin/stack
 rm -f %{buildroot}/usr/bin/strings
 rm -f %{buildroot}/usr/bin/strip
-rm -f %{buildroot}/usr/lib64/libasm.a
-rm -f %{buildroot}/usr/lib64/libdw.a
-rm -f %{buildroot}/usr/lib64/libelf.a
 rm -f %{buildroot}/usr/lib64/pkgconfig/libdebuginfod.pc
 rm -f %{buildroot}/usr/lib32/pkgconfig/32libdebuginfod.pc
 rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
@@ -468,6 +473,12 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 /usr/share/man/man3/elf_clone.3
 /usr/share/man/man3/elf_getdata.3
 /usr/share/man/man3/elf_update.3
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/libasm.a
+/usr/lib64/libdw.a
+/usr/lib64/libelf.a
 
 %files staticdev32
 %defattr(-,root,root,-)
