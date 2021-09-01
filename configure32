@@ -8,3 +8,4 @@
 --build=i686-generic-linux-gnu
 --host=i686-generic-linux-gnu
 --target=i686-clr-linux-gnu
+--enable-maintainer-mode

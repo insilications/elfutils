@@ -3,6 +3,9 @@
 --program-prefix=eu-
 --with-zlib
 --with-lzma
+--with-zstd
 --without-bzlib
 --disable-debuginfod
 --disable-libdebuginfod
+--enable-maintainer-mode
+--enable-gcov
