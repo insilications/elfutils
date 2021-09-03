@@ -5,12 +5,16 @@
 %define keepstatic 1
 Name     : elfutils
 Version  : 0.185
-Release  : 331
+Release  : 334
 URL      : file:///aot/build/clearlinux/packages/elfutils/elfutils-v0.185.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/elfutils/elfutils-v0.185.tar.gz
 Summary  : elfutils libelf library to read and write ELF files
 Group    : Development/Tools
 License  : GPL-2.0 GPL-2.0+ GPL-3.0 GPL-3.0+ LGPL-3.0+
+Requires: elfutils-bin = %{version}-%{release}
+Requires: elfutils-lib = %{version}-%{release}
+Requires: elfutils-locales = %{version}-%{release}
+Requires: elfutils-man = %{version}-%{release}
 BuildRequires : binutils-dev
 BuildRequires : bison
 BuildRequires : buildreq-cmake
@@ -74,6 +78,87 @@ BuildRequires : zstd-staticdev
 The elfutils project provides libraries and tools for ELF files and DWARF data.
 The project home is http://elfutils.org/
 
+%package bin
+Summary: bin components for the elfutils package.
+Group: Binaries
+
+%description bin
+bin components for the elfutils package.
+
+
+%package dev
+Summary: dev components for the elfutils package.
+Group: Development
+Requires: elfutils-lib = %{version}-%{release}
+Requires: elfutils-bin = %{version}-%{release}
+Provides: elfutils-devel = %{version}-%{release}
+Requires: elfutils = %{version}-%{release}
+
+%description dev
+dev components for the elfutils package.
+
+
+%package dev32
+Summary: dev32 components for the elfutils package.
+Group: Default
+Requires: elfutils-lib32 = %{version}-%{release}
+Requires: elfutils-bin = %{version}-%{release}
+Requires: elfutils-dev = %{version}-%{release}
+
+%description dev32
+dev32 components for the elfutils package.
+
+
+%package lib
+Summary: lib components for the elfutils package.
+Group: Libraries
+
+%description lib
+lib components for the elfutils package.
+
+
+%package lib32
+Summary: lib32 components for the elfutils package.
+Group: Default
+
+%description lib32
+lib32 components for the elfutils package.
+
+
+%package locales
+Summary: locales components for the elfutils package.
+Group: Default
+
+%description locales
+locales components for the elfutils package.
+
+
+%package man
+Summary: man components for the elfutils package.
+Group: Default
+
+%description man
+man components for the elfutils package.
+
+
+%package staticdev
+Summary: staticdev components for the elfutils package.
+Group: Default
+Requires: elfutils-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the elfutils package.
+
+
+%package staticdev32
+Summary: staticdev32 components for the elfutils package.
+Group: Default
+Requires: elfutils-dev32 = %{version}-%{release}
+
+%description staticdev32
+staticdev32 components for the elfutils package.
+
+
 %prep
 %setup -q -n elfutils
 cd %{_builddir}/elfutils
@@ -87,7 +172,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1630681222
+export SOURCE_DATE_EPOCH=1630682597
 unset LD_AS_NEEDED
 export GCC_IGNORE_WERROR=1
 ## altflags_pgof content
@@ -194,7 +279,6 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1  V=1 VERBOSE=1
 ## profile_payload start
 unset LD_LIBRARY_PATH
 unset LIBRARY_PATH
-exit 0
 export DISPLAY=:0
 export __GL_SYNC_TO_VBLANK=0
 export __GL_SYNC_DISPLAY_DEVICE=DFP-1
@@ -218,9 +302,11 @@ export LIBVA_DRIVER_NAME=vdpau
 export LIBVA_DRIVERS_PATH=/usr/lib64/dri
 export GTK_RC_FILES=/etc/gtk/gtkrc
 export FONTCONFIG_PATH=/usr/share/defaults/fonts
+pushd src/
+./readelf -d /usr/lib64/libgcov.a || :
+./readelf -d /usr/lib64/libgcc_s.so.1 || :
+popd
 make check -j1 V=1 VERBOSE=1 || :
-readelf -d /usr/lib64/libgcov.a || :
-readelf -d /usr/lib64/libgcc_s.so.1 || :
 export LD_LIBRARY_PATH="/usr/nvidia/lib64:/usr/nvidia/lib64/vdpau:/usr/nvidia/lib64/xorg/modules/drivers:/usr/nvidia/lib64/xorg/modules/extensions:/usr/local/cuda/lib64:/usr/lib64/haswell:/usr/lib64/haswell/pulseaudio:/usr/lib64/haswell/alsa-lib:/usr/lib64/haswell/gstreamer-1.0:/usr/lib64/haswell/pipewire-0.3:/usr/lib64/haswell/spa-0.2:/usr/lib64/dri:/usr/lib64/chromium:/usr/lib64:/usr/lib64/pulseaudio:/usr/lib64/alsa-lib:/usr/lib64/gstreamer-1.0:/usr/lib64/pipewire-0.3:/usr/lib64/spa-0.2:/usr/lib:/aot/intel/oneapi/compiler/latest/linux/compiler/lib/intel64_lin:/aot/intel/oneapi/compiler/latest/linux/lib:/aot/intel/oneapi/mkl/latest/lib/intel64:/aot/intel/oneapi/tbb/latest/lib/intel64/gcc4.8:/usr/share:/usr/lib64/wine:/usr/nvidia/lib32:/usr/nvidia/lib32/vdpau:/usr/lib32:/usr/lib32/wine"
 export LIBRARY_PATH="/usr/nvidia/lib64:/usr/nvidia/lib64/vdpau:/usr/nvidia/lib64/xorg/modules/drivers:/usr/nvidia/lib64/xorg/modules/extensions:/usr/local/cuda/lib64:/usr/lib64/haswell:/usr/lib64/haswell/pulseaudio:/usr/lib64/haswell/alsa-lib:/usr/lib64/haswell/gstreamer-1.0:/usr/lib64/haswell/pipewire-0.3:/usr/lib64/haswell/spa-0.2:/usr/lib64/dri:/usr/lib64/chromium:/usr/lib64:/usr/lib64/pulseaudio:/usr/lib64/alsa-lib:/usr/lib64/gstreamer-1.0:/usr/lib64/pipewire-0.3:/usr/lib64/spa-0.2:/usr/lib:/aot/intel/oneapi/compiler/latest/linux/compiler/lib/intel64_lin:/aot/intel/oneapi/compiler/latest/linux/lib:/aot/intel/oneapi/mkl/latest/lib/intel64:/aot/intel/oneapi/tbb/latest/lib/intel64/gcc4.8:/usr/share:/usr/lib64/wine:/usr/nvidia/lib32:/usr/nvidia/lib32/vdpau:/usr/lib32:/usr/lib32/wine"
 ## profile_payload end
@@ -285,7 +371,7 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1  V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1630681222
+export SOURCE_DATE_EPOCH=1630682597
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
@@ -297,6 +383,7 @@ then
 fi
 popd
 %make_install
+%find_lang elfutils
 ## Remove excluded files
 rm -f %{buildroot}/usr/bin/addr2line
 rm -f %{buildroot}/usr/bin/ar
@@ -314,4 +401,95 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/32libdebuginfod.pc
 rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 
 %files
+%defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/eu-addr2line
+/usr/bin/eu-ar
+/usr/bin/eu-elfclassify
+/usr/bin/eu-elfcmp
+/usr/bin/eu-elfcompress
+/usr/bin/eu-elflint
+/usr/bin/eu-findtextrel
+/usr/bin/eu-make-debug-archive
+/usr/bin/eu-nm
+/usr/bin/eu-objdump
+/usr/bin/eu-ranlib
+/usr/bin/eu-readelf
+/usr/bin/eu-size
+/usr/bin/eu-stack
+/usr/bin/eu-strings
+/usr/bin/eu-strip
+/usr/bin/eu-unstrip
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/dwarf.h
+/usr/include/elfutils/elf-knowledge.h
+/usr/include/elfutils/known-dwarf.h
+/usr/include/elfutils/libasm.h
+/usr/include/elfutils/libdw.h
+/usr/include/elfutils/libdwelf.h
+/usr/include/elfutils/libdwfl.h
+/usr/include/elfutils/version.h
+/usr/include/gelf.h
+/usr/include/libelf.h
+/usr/include/nlist.h
+/usr/lib64/libasm.so
+/usr/lib64/libdw.so
+/usr/lib64/libelf.so
+/usr/lib64/pkgconfig/libdw.pc
+/usr/lib64/pkgconfig/libelf.pc
+
+%files dev32
+%defattr(-,root,root,-)
+/usr/lib32/libasm.so
+/usr/lib32/libdw.so
+/usr/lib32/libelf.so
+/usr/lib32/pkgconfig/32libdw.pc
+/usr/lib32/pkgconfig/32libelf.pc
+/usr/lib32/pkgconfig/libdw.pc
+/usr/lib32/pkgconfig/libelf.pc
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libasm-0.185.so
+/usr/lib64/libasm.so.1
+/usr/lib64/libdw-0.185.so
+/usr/lib64/libdw.so.1
+/usr/lib64/libelf-0.185.so
+/usr/lib64/libelf.so.1
+
+%files lib32
+%defattr(-,root,root,-)
+/usr/lib32/libasm-0.185.so
+/usr/lib32/libasm.so.1
+/usr/lib32/libdw-0.185.so
+/usr/lib32/libdw.so.1
+/usr/lib32/libelf-0.185.so
+/usr/lib32/libelf.so.1
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/eu-elfclassify.1
+/usr/share/man/man1/eu-readelf.1
+/usr/share/man/man3/elf_begin.3
+/usr/share/man/man3/elf_clone.3
+/usr/share/man/man3/elf_getdata.3
+/usr/share/man/man3/elf_update.3
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/libasm.a
+/usr/lib64/libdw.a
+/usr/lib64/libelf.a
+
+%files staticdev32
+%defattr(-,root,root,-)
+/usr/lib32/libasm.a
+/usr/lib32/libdw.a
+/usr/lib32/libelf.a
+
+%files locales -f elfutils.lang
 %defattr(-,root,root,-)

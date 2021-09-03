@@ -5,7 +5,6 @@ dpdk-dev
 dpdk-staticdev
 elfutils-dev
 elfutils-dev32
-elfutils-staticdev32
 libbpf-dev
 libqb
 linux-tools
