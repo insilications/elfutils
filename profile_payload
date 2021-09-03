@@ -1,3 +1,4 @@
+exit 0
 export DISPLAY=:0
 export __GL_SYNC_TO_VBLANK=0
 export __GL_SYNC_DISPLAY_DEVICE=DFP-1
@@ -21,4 +22,8 @@ export LIBVA_DRIVER_NAME=vdpau
 export LIBVA_DRIVERS_PATH=/usr/lib64/dri
 export GTK_RC_FILES=/etc/gtk/gtkrc
 export FONTCONFIG_PATH=/usr/share/defaults/fonts
-make check -j16 V=1 VERBOSE=1 || :
+pushd src/
+./readelf -d /usr/lib64/libgcov.a || :
+./readelf -d /usr/lib64/libgcc_s.so.1 || :
+popd
+make check -j1 V=1 VERBOSE=1 || :
