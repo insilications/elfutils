@@ -8,6 +8,7 @@ bzip2-bin
 bzip2-dev
 curl
 curl-dev
+curl-staticdev
 doxygen
 elfutils-dev
 flex
@@ -16,8 +17,8 @@ gcc
 gcc-dev
 gcc-dev32
 gcc-libgcc32
-gcc-libs-math
 gcc-libstdc++32
+gcc-libs-math
 gcc-libubsan
 gcc-locale
 gettext
