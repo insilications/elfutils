@@ -4,10 +4,10 @@
 #
 %define keepstatic 1
 Name     : elfutils
-Version  : 0.185
-Release  : 334
-URL      : file:///aot/build/clearlinux/packages/elfutils/elfutils-v0.185.tar.gz
-Source0  : file:///aot/build/clearlinux/packages/elfutils/elfutils-v0.185.tar.gz
+Version  : 0.186
+Release  : 502
+URL      : file:///aot/build/clearlinux/packages/elfutils/elfutils-v0.186.tar.gz
+Source0  : file:///aot/build/clearlinux/packages/elfutils/elfutils-v0.186.tar.gz
 Summary  : elfutils libelf library to read and write ELF files
 Group    : Development/Tools
 License  : GPL-2.0 GPL-2.0+ GPL-3.0 GPL-3.0+ LGPL-3.0+
@@ -23,9 +23,7 @@ BuildRequires : bzip2-bin
 BuildRequires : bzip2-dev
 BuildRequires : curl
 BuildRequires : curl-dev
-BuildRequires : curl-staticdev
 BuildRequires : doxygen
-BuildRequires : elfutils-dev
 BuildRequires : flex
 BuildRequires : flex-dev
 BuildRequires : gcc
@@ -45,7 +43,6 @@ BuildRequires : glibc-staticdev
 BuildRequires : iproute2
 BuildRequires : libarchive
 BuildRequires : libarchive-dev
-BuildRequires : libarchive-staticdev
 BuildRequires : libedit
 BuildRequires : libedit-dev
 BuildRequires : libffi-dev
@@ -172,7 +169,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1630682597
+export SOURCE_DATE_EPOCH=1638037890
 unset LD_AS_NEEDED
 export GCC_IGNORE_WERROR=1
 ## altflags_pgof content
@@ -230,9 +227,9 @@ export PATH="/usr/lib64/ccache/bin:/usr/local/cuda/bin:/usr/nvidia/bin:/usr/bin/
 export CPATH="/usr/local/cuda/include"
 #
 export DISPLAY=:0
-export __GL_SYNC_TO_VBLANK=0
-export __GL_SYNC_DISPLAY_DEVICE=DFP-1
-export VDPAU_NVIDIA_SYNC_DISPLAY_DEVICE=DFP-1
+export __GL_SYNC_TO_VBLANK=1
+export __GL_SYNC_DISPLAY_DEVICE=HDMI-0
+export VDPAU_NVIDIA_SYNC_DISPLAY_DEVICE=HDMI-0
 export LANG=en_US.UTF-8
 export XDG_CONFIG_DIRS=/usr/share/xdg:/etc/xdg
 export XDG_SEAT=seat0
@@ -280,9 +277,9 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1  V=1 VERBOSE=1
 unset LD_LIBRARY_PATH
 unset LIBRARY_PATH
 export DISPLAY=:0
-export __GL_SYNC_TO_VBLANK=0
-export __GL_SYNC_DISPLAY_DEVICE=DFP-1
-export VDPAU_NVIDIA_SYNC_DISPLAY_DEVICE=DFP-1
+export __GL_SYNC_TO_VBLANK=1
+export __GL_SYNC_DISPLAY_DEVICE=HDMI-0
+export VDPAU_NVIDIA_SYNC_DISPLAY_DEVICE=HDMI-0
 export LANG=en_US.UTF-8
 export XDG_CONFIG_DIRS=/usr/share/xdg:/etc/xdg
 export XDG_SEAT=seat0
@@ -341,7 +338,6 @@ export NM=gcc-nm
 unset LD_LIBRARY_PATH
 unset LIBRARY_PATH
 unset CPATH
-export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 unset ASFLAGS
 unset CFLAGS
 unset CXXFLAGS
@@ -349,7 +345,8 @@ unset FCFLAGS
 unset FFLAGS
 unset CFFLAGS
 unset LDFLAGS
-export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig:/usr/share/pkgconfig"
+export ASFLAGS="--32"
 export CFLAGS="-O2 -ffat-lto-objects -fuse-linker-plugin -pipe -fPIC -march=native -mtune=native -m32 -mstackrealign"
 export CXXFLAGS="-O2 -ffat-lto-objects -fuse-linker-plugin -fvisibility-inlines-hidden -pipe -fPIC -march=native -mtune=native -m32 -mstackrealign"
 export FCFLAGS="-O2 -ffat-lto-objects -fuse-linker-plugin -fvisibility-inlines-hidden -pipe -fPIC -march=native -mtune=native -m32 -mstackrealign"
@@ -371,7 +368,7 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1  V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1630682597
+export SOURCE_DATE_EPOCH=1638037890
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
@@ -381,24 +378,30 @@ then
     for i in *.pc ; do ln -s $i 32$i ; done
     popd
 fi
+if [ -d %{buildroot}/usr/share/pkgconfig ]
+then
+pushd %{buildroot}/usr/share/pkgconfig
+for i in *.pc ; do ln -s $i 32$i ; done
+popd
+fi
 popd
 %make_install
 %find_lang elfutils
 ## Remove excluded files
-rm -f %{buildroot}/usr/bin/addr2line
-rm -f %{buildroot}/usr/bin/ar
-rm -f %{buildroot}/usr/bin/ld
-rm -f %{buildroot}/usr/bin/nm
-rm -f %{buildroot}/usr/bin/objdump
-rm -f %{buildroot}/usr/bin/ranlib
-rm -f %{buildroot}/usr/bin/readelf
-rm -f %{buildroot}/usr/bin/size
-rm -f %{buildroot}/usr/bin/stack
-rm -f %{buildroot}/usr/bin/strings
-rm -f %{buildroot}/usr/bin/strip
-rm -f %{buildroot}/usr/lib64/pkgconfig/libdebuginfod.pc
-rm -f %{buildroot}/usr/lib32/pkgconfig/32libdebuginfod.pc
-rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
+rm -f %{buildroot}*/usr/bin/addr2line
+rm -f %{buildroot}*/usr/bin/ar
+rm -f %{buildroot}*/usr/bin/ld
+rm -f %{buildroot}*/usr/bin/nm
+rm -f %{buildroot}*/usr/bin/objdump
+rm -f %{buildroot}*/usr/bin/ranlib
+rm -f %{buildroot}*/usr/bin/readelf
+rm -f %{buildroot}*/usr/bin/size
+rm -f %{buildroot}*/usr/bin/stack
+rm -f %{buildroot}*/usr/bin/strings
+rm -f %{buildroot}*/usr/bin/strip
+rm -f %{buildroot}*/usr/lib32/pkgconfig/32libdebuginfod.pc
+rm -f %{buildroot}*/usr/lib32/pkgconfig/libdebuginfod.pc
+rm -f %{buildroot}*/usr/lib64/pkgconfig/libdebuginfod.pc
 
 %files
 %defattr(-,root,root,-)
@@ -454,20 +457,20 @@ rm -f %{buildroot}/usr/lib32/pkgconfig/libdebuginfod.pc
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/libasm-0.185.so
+/usr/lib64/libasm-0.186.so
 /usr/lib64/libasm.so.1
-/usr/lib64/libdw-0.185.so
+/usr/lib64/libdw-0.186.so
 /usr/lib64/libdw.so.1
-/usr/lib64/libelf-0.185.so
+/usr/lib64/libelf-0.186.so
 /usr/lib64/libelf.so.1
 
 %files lib32
 %defattr(-,root,root,-)
-/usr/lib32/libasm-0.185.so
+/usr/lib32/libasm-0.186.so
 /usr/lib32/libasm.so.1
-/usr/lib32/libdw-0.185.so
+/usr/lib32/libdw-0.186.so
 /usr/lib32/libdw.so.1
-/usr/lib32/libelf-0.185.so
+/usr/lib32/libelf-0.186.so
 /usr/lib32/libelf.so.1
 
 %files man

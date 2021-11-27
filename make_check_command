@@ -21,4 +21,4 @@ export LIBVA_DRIVER_NAME=vdpau
 export LIBVA_DRIVERS_PATH=/usr/lib64/dri
 export GTK_RC_FILES=/etc/gtk/gtkrc
 export FONTCONFIG_PATH=/usr/share/defaults/fonts
-make check -j16 V=1 VERBOSE=1 || :
+make check -j1 V=1 VERBOSE=1 || :

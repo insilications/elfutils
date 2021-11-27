@@ -9,6 +9,6 @@
 /usr/bin/stack
 /usr/bin/strings
 /usr/bin/strip
-/usr/lib64/pkgconfig/libdebuginfod.pc
 /usr/lib32/pkgconfig/32libdebuginfod.pc
 /usr/lib32/pkgconfig/libdebuginfod.pc
+/usr/lib64/pkgconfig/libdebuginfod.pc

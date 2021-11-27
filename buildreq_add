@@ -8,9 +8,7 @@ bzip2-bin
 bzip2-dev
 curl
 curl-dev
-curl-staticdev
 doxygen
-elfutils-dev
 flex
 flex-dev
 gcc
@@ -29,7 +27,6 @@ glibc-staticdev
 iproute2
 libarchive
 libarchive-dev
-libarchive-staticdev
 libedit
 libedit-dev
 libffi-dev
