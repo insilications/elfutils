@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : elfutils
 Version  : 0.186
-Release  : 502
+Release  : 503
 URL      : file:///aot/build/clearlinux/packages/elfutils/elfutils-v0.186.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/elfutils/elfutils-v0.186.tar.gz
 Summary  : elfutils libelf library to read and write ELF files
@@ -169,7 +169,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1638037890
+export SOURCE_DATE_EPOCH=1639114171
 unset LD_AS_NEEDED
 export GCC_IGNORE_WERROR=1
 ## altflags_pgof content
@@ -317,7 +317,7 @@ export CXXFLAGS="${CXXFLAGS_USE}"
 export FFLAGS="${FFLAGS_USE}"
 export FCFLAGS="${FCFLAGS_USE}"
 export LDFLAGS="${LDFLAGS_USE}"
-unset LIBS
+export LIBS="${LIBS_USE}"
 %reconfigure --enable-static \
 --enable-shared \
 --program-prefix=eu- \
@@ -368,7 +368,7 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1  V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1638037890
+export SOURCE_DATE_EPOCH=1639114171
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32

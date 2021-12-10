@@ -13,6 +13,8 @@ dpdk-staticdev
 dwarves
 elfutils-dev
 elfutils-dev32
+elfutils-staticdev
+elfutils-staticdev32
 flatpak-builder
 fwupd
 ghc
