@@ -9,9 +9,7 @@ Configure miss: g++ option to enable C++11 features
 Configure miss: gcc options needed to detect all undeclared functions
 Configure miss: gcc options needed to detect all undeclared functions
 Configure miss: gcc options needed to detect all undeclared functions
-Configure miss: genhtml
 Configure miss: i686-generic-linux-gnu-readelf
-Configure miss: lcov
 Configure miss: library containing ZSTD_decompress
 Configure miss: library containing yywrap
 Configure miss: library containing yywrap
