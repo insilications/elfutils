@@ -7,4 +7,3 @@
 --disable-debuginfod
 --disable-libdebuginfod
 --enable-maintainer-mode
---enable-install-elfh
