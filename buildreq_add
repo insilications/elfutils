@@ -6,6 +6,7 @@ buildreq-cmake
 bzip2
 bzip2-bin
 bzip2-dev
+bzip2-staticdev
 curl
 curl-dev
 doxygen
@@ -35,11 +36,16 @@ libgcc1
 libstdc++
 libxml2-dev
 libxml2-staticdev
+lz4-dev
+lz4-staticdev
+lzo-dev
+lzo-staticdev
 pkg-config
 procps-ng
 python3-dev
 python3-staticdev
 util-linux
+util-linux-dev
 xz-dev
 xz-dev32
 xz-devel

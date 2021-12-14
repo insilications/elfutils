@@ -8,4 +8,3 @@
 --disable-debuginfod
 --disable-libdebuginfod
 --enable-maintainer-mode
---enable-gcov
