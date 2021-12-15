@@ -5,16 +5,12 @@
 %define keepstatic 1
 Name     : elfutils
 Version  : 0.186
-Release  : 517
+Release  : 518
 URL      : file:///aot/build/clearlinux/packages/elfutils/elfutils-v0.186.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/elfutils/elfutils-v0.186.tar.gz
 Summary  : elfutils libelf library to read and write ELF files
 Group    : Development/Tools
 License  : GPL-2.0 GPL-2.0+ GPL-3.0 GPL-3.0+ LGPL-3.0+
-Requires: elfutils-bin = %{version}-%{release}
-Requires: elfutils-lib = %{version}-%{release}
-Requires: elfutils-locales = %{version}-%{release}
-Requires: elfutils-man = %{version}-%{release}
 BuildRequires : binutils-dev
 BuildRequires : bison
 BuildRequires : buildreq-cmake
@@ -83,87 +79,6 @@ BuildRequires : zstd-staticdev
 The elfutils project provides libraries and tools for ELF files and DWARF data.
 The project home is http://elfutils.org/
 
-%package bin
-Summary: bin components for the elfutils package.
-Group: Binaries
-
-%description bin
-bin components for the elfutils package.
-
-
-%package dev
-Summary: dev components for the elfutils package.
-Group: Development
-Requires: elfutils-lib = %{version}-%{release}
-Requires: elfutils-bin = %{version}-%{release}
-Provides: elfutils-devel = %{version}-%{release}
-Requires: elfutils = %{version}-%{release}
-
-%description dev
-dev components for the elfutils package.
-
-
-%package dev32
-Summary: dev32 components for the elfutils package.
-Group: Default
-Requires: elfutils-lib32 = %{version}-%{release}
-Requires: elfutils-bin = %{version}-%{release}
-Requires: elfutils-dev = %{version}-%{release}
-
-%description dev32
-dev32 components for the elfutils package.
-
-
-%package lib
-Summary: lib components for the elfutils package.
-Group: Libraries
-
-%description lib
-lib components for the elfutils package.
-
-
-%package lib32
-Summary: lib32 components for the elfutils package.
-Group: Default
-
-%description lib32
-lib32 components for the elfutils package.
-
-
-%package locales
-Summary: locales components for the elfutils package.
-Group: Default
-
-%description locales
-locales components for the elfutils package.
-
-
-%package man
-Summary: man components for the elfutils package.
-Group: Default
-
-%description man
-man components for the elfutils package.
-
-
-%package staticdev
-Summary: staticdev components for the elfutils package.
-Group: Default
-Requires: elfutils-dev = %{version}-%{release}
-
-%description staticdev
-staticdev components for the elfutils package.
-
-
-%package staticdev32
-Summary: staticdev32 components for the elfutils package.
-Group: Default
-Requires: elfutils-dev32 = %{version}-%{release}
-
-%description staticdev32
-staticdev32 components for the elfutils package.
-
-
 %prep
 %setup -q -n elfutils
 cd %{_builddir}/elfutils
@@ -177,7 +92,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1639526370
+export SOURCE_DATE_EPOCH=1639550805
 unset LD_AS_NEEDED
 export GCC_IGNORE_WERROR=1
 ## altflags1f content
@@ -259,17 +174,17 @@ sd -r 'git describe' 'git describe --abbrev=0' .
 --disable-libdebuginfod \
 --enable-maintainer-mode
 ## make_prepend64 content
-# find . -type f -name 'Makefile' -exec sed -i 's:-lbz2\b:-Wl,--whole-archive,/usr/lib64/libbz2.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
-# find . -type f -name 'Makefile' -exec sed -i 's:-lz\b:-Wl,--whole-archive,/usr/lib64/libz.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
-# find . -type f -name 'Makefile' -exec sed -i 's:-llzma\b:-Wl,--whole-archive,/usr/lib64/liblzma.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
-# find . -type f -name 'Makefile' -exec sed -i 's:-lzstd\b:-Wl,--whole-archive,/usr/lib64/libzstd.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
-# find . -type f -name 'Makefile' -exec sed -i 's:-lacl\b:-Wl,--whole-archive,/usr/lib64/libacl.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
-# find . -type f -name 'Makefile' -exec sed -i 's:-llz4\b:-Wl,--whole-archive,/usr/lib64/liblz4.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
-# find . -type f -name 'Makefile' -exec sed -i 's:-llzo2\b:-Wl,--whole-archive,/usr/lib64/liblzo2.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
-# find . -type f -name 'Makefile' -exec sed -i 's:-lxml2\b:-Wl,--whole-archive,/usr/lib64/libxml2.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
-# find . -type f -name 'Makefile' -exec sed -i 's:-lexpat\b:-Wl,--whole-archive,/usr/lib64/libexpat.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
-# find . -type f -name 'Makefile' -exec sed -i 's:-lcrypto\b:-Wl,--whole-archive,/usr/lib64/libcrypto.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
-# find . -type f -name 'Makefile' -exec sed -i 's:-lssl\b:-Wl,--whole-archive,/usr/lib64/libssl.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
+find . -type f -name 'Makefile' -exec sed -i 's:-lbz2\b:-Wl,--whole-archive,/usr/lib64/libbz2.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
+find . -type f -name 'Makefile' -exec sed -i 's:-lz\b:-Wl,--whole-archive,/usr/lib64/libz.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
+find . -type f -name 'Makefile' -exec sed -i 's:-llzma\b:-Wl,--whole-archive,/usr/lib64/liblzma.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
+find . -type f -name 'Makefile' -exec sed -i 's:-lzstd\b:-Wl,--whole-archive,/usr/lib64/libzstd.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
+find . -type f -name 'Makefile' -exec sed -i 's:-lacl\b:-Wl,--whole-archive,/usr/lib64/libacl.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
+find . -type f -name 'Makefile' -exec sed -i 's:-llz4\b:-Wl,--whole-archive,/usr/lib64/liblz4.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
+find . -type f -name 'Makefile' -exec sed -i 's:-llzo2\b:-Wl,--whole-archive,/usr/lib64/liblzo2.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
+find . -type f -name 'Makefile' -exec sed -i 's:-lxml2\b:-Wl,--whole-archive,/usr/lib64/libxml2.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
+find . -type f -name 'Makefile' -exec sed -i 's:-lexpat\b:-Wl,--whole-archive,/usr/lib64/libexpat.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
+find . -type f -name 'Makefile' -exec sed -i 's:-lcrypto\b:-Wl,--whole-archive,/usr/lib64/libcrypto.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
+find . -type f -name 'Makefile' -exec sed -i 's:-lssl\b:-Wl,--whole-archive,/usr/lib64/libssl.a,-lpthread,-ldl,-lm,-lmvec,--no-whole-archive:g' {} \;
 ## make_prepend64 end
 ## make_macro content
 make  %{?_smp_mflags}  V=1 VERBOSE=1  V=1 VERBOSE=1
@@ -314,7 +229,7 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1  V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1639526370
+export SOURCE_DATE_EPOCH=1639550805
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
@@ -332,7 +247,6 @@ popd
 fi
 popd
 %make_install
-%find_lang elfutils
 ## Remove excluded files
 rm -f %{buildroot}*/usr/bin/addr2line
 rm -f %{buildroot}*/usr/bin/ar
@@ -350,95 +264,4 @@ rm -f %{buildroot}*/usr/lib32/pkgconfig/32libdebuginfod.pc
 rm -f %{buildroot}*/usr/lib32/pkgconfig/libdebuginfod.pc
 
 %files
-%defattr(-,root,root,-)
-
-%files bin
-%defattr(-,root,root,-)
-/usr/bin/eu-addr2line
-/usr/bin/eu-ar
-/usr/bin/eu-elfclassify
-/usr/bin/eu-elfcmp
-/usr/bin/eu-elfcompress
-/usr/bin/eu-elflint
-/usr/bin/eu-findtextrel
-/usr/bin/eu-make-debug-archive
-/usr/bin/eu-nm
-/usr/bin/eu-objdump
-/usr/bin/eu-ranlib
-/usr/bin/eu-readelf
-/usr/bin/eu-size
-/usr/bin/eu-stack
-/usr/bin/eu-strings
-/usr/bin/eu-strip
-/usr/bin/eu-unstrip
-
-%files dev
-%defattr(-,root,root,-)
-/usr/include/dwarf.h
-/usr/include/elfutils/elf-knowledge.h
-/usr/include/elfutils/known-dwarf.h
-/usr/include/elfutils/libasm.h
-/usr/include/elfutils/libdw.h
-/usr/include/elfutils/libdwelf.h
-/usr/include/elfutils/libdwfl.h
-/usr/include/elfutils/version.h
-/usr/include/gelf.h
-/usr/include/libelf.h
-/usr/include/nlist.h
-/usr/lib64/libasm.so
-/usr/lib64/libdw.so
-/usr/lib64/libelf.so
-/usr/lib64/pkgconfig/libdw.pc
-/usr/lib64/pkgconfig/libelf.pc
-
-%files dev32
-%defattr(-,root,root,-)
-/usr/lib32/libasm.so
-/usr/lib32/libdw.so
-/usr/lib32/libelf.so
-/usr/lib32/pkgconfig/32libdw.pc
-/usr/lib32/pkgconfig/32libelf.pc
-/usr/lib32/pkgconfig/libdw.pc
-/usr/lib32/pkgconfig/libelf.pc
-
-%files lib
-%defattr(-,root,root,-)
-/usr/lib64/libasm-0.186.so
-/usr/lib64/libasm.so.1
-/usr/lib64/libdw-0.186.so
-/usr/lib64/libdw.so.1
-/usr/lib64/libelf-0.186.so
-/usr/lib64/libelf.so.1
-
-%files lib32
-%defattr(-,root,root,-)
-/usr/lib32/libasm-0.186.so
-/usr/lib32/libasm.so.1
-/usr/lib32/libdw-0.186.so
-/usr/lib32/libdw.so.1
-/usr/lib32/libelf-0.186.so
-/usr/lib32/libelf.so.1
-
-%files man
-%defattr(0644,root,root,0755)
-/usr/share/man/man1/eu-elfclassify.1
-/usr/share/man/man1/eu-readelf.1
-/usr/share/man/man3/elf_begin.3
-/usr/share/man/man3/elf_clone.3
-/usr/share/man/man3/elf_getdata.3
-/usr/share/man/man3/elf_update.3
-
-%files staticdev
-%defattr(-,root,root,-)
-/usr/lib64/libasm.a
-/usr/lib64/libdw.a
-/usr/lib64/libelf.a
-
-%files staticdev32
-%defattr(-,root,root,-)
-/usr/lib32/libasm.a
-/usr/lib32/libdw.a
-/usr/lib32/libelf.a
-
-%files locales -f elfutils.lang
 %defattr(-,root,root,-)
